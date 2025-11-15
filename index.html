@@ -1399,6 +1399,26 @@
   </div>
 
   <script>
+    /*
+     * ⚠️ SECURITY WARNING ⚠️
+     *
+     * This implementation includes an API key directly in the frontend code.
+     * This is NOT SECURE for production use!
+     *
+     * API keys exposed in frontend code can be:
+     * - Stolen by anyone viewing the page source
+     * - Used to make unauthorized API calls
+     * - Lead to unexpected charges on your account
+     *
+     * FOR PRODUCTION USE:
+     * 1. Move the API key to a backend server
+     * 2. Create a proxy endpoint on your server
+     * 3. Have the frontend call your server, which then calls the Anthropic API
+     * 4. Implement rate limiting and authentication
+     *
+     * This current setup is ONLY for testing/demonstration purposes!
+     */
+
     // Bilingual translations
     const translations = {
       'zh': {
@@ -1648,7 +1668,14 @@
       chat.classList.toggle('show');
     }
 
-    function sendMessage() {
+    // AI Configuration for Vercel Deployment
+    // API key is stored securely in Vercel environment variables
+    const AI_CONFIG = {
+      enabled: true, // AI is enabled via backend API
+      apiEndpoint: '/api/chat' // Vercel serverless function endpoint
+    };
+
+    async function sendMessage() {
       const input = document.getElementById('chatInput');
       const message = input.value.trim();
 
@@ -1658,14 +1685,56 @@
 
         showTypingIndicator();
 
-        setTimeout(() => {
-          hideTypingIndicator();
-          addBotMessage(getBotResponse(message));
-        }, 1500);
+        // Check if AI is enabled
+        if (AI_CONFIG.enabled) {
+          try {
+            // Call real Claude API
+            const response = await callClaudeAPI(message);
+            hideTypingIndicator();
+            addBotMessage(response);
+          } catch (error) {
+            console.error('API Error:', error);
+            hideTypingIndicator();
+            // Fallback to predefined responses
+            addBotMessage(getBotResponse(message));
+          }
+        } else {
+          // Use predefined responses if AI is not configured
+          setTimeout(() => {
+            hideTypingIndicator();
+            addBotMessage(getBotResponse(message));
+          }, 1000);
+        }
       }
     }
 
-    function sendQuickMessage(type) {
+    async function callClaudeAPI(userMessage) {
+      // Call Vercel serverless function instead of Anthropic API directly
+      const response = await fetch(AI_CONFIG.apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          language: currentLang
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error || 'Unknown error');
+      }
+
+      return data.message;
+    }
+
+    async function sendQuickMessage(type) {
       const messages = {
         'zh': {
           'application': '我想了解留学申请服务',
@@ -1685,10 +1754,26 @@
       addUserMessage(message);
 
       showTypingIndicator();
-      setTimeout(() => {
-        hideTypingIndicator();
-        addBotMessage(getBotResponse(type, true));
-      }, 1500);
+
+      // Check if AI is enabled and configured
+      if (AI_CONFIG.enabled && AI_CONFIG.apiKey !== 'YOUR_ANTHROPIC_API_KEY_HERE') {
+        try {
+          const response = await callClaudeAPI(message);
+          hideTypingIndicator();
+          addBotMessage(response);
+        } catch (error) {
+          console.error('API Error:', error);
+          hideTypingIndicator();
+          // Fallback to predefined responses
+          addBotMessage(getBotResponse(type, true));
+        }
+      } else {
+        // Use predefined responses if AI is not configured
+        setTimeout(() => {
+          hideTypingIndicator();
+          addBotMessage(getBotResponse(type, true));
+        }, 1000);
+      }
     }
 
     function addUserMessage(message) {
