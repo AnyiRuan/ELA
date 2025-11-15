@@ -1668,14 +1668,11 @@
       chat.classList.toggle('show');
     }
 
-    // AI Configuration
-    // ⚠️ REPLACE WITH YOUR ACTUAL API KEY - DO NOT COMMIT REAL KEYS TO GIT!
-    // Get your API key from: https://console.anthropic.com/
+    // AI Configuration for Vercel Deployment
+    // API key is stored securely in Vercel environment variables
     const AI_CONFIG = {
-      apiKey: 'YOUR_ANTHROPIC_API_KEY_HERE', // Replace with your actual key
-      model: 'claude-3-5-haiku-20241022', // Claude Haiku 3.5 (Latest available)
-      apiUrl: 'https://api.anthropic.com/v1/messages',
-      enabled: false // Set to true after adding your API key
+      enabled: true, // AI is enabled via backend API
+      apiEndpoint: '/api/chat' // Vercel serverless function endpoint
     };
 
     async function sendMessage() {
@@ -1688,8 +1685,8 @@
 
         showTypingIndicator();
 
-        // Check if AI is enabled and configured
-        if (AI_CONFIG.enabled && AI_CONFIG.apiKey !== 'YOUR_ANTHROPIC_API_KEY_HERE') {
+        // Check if AI is enabled
+        if (AI_CONFIG.enabled) {
           try {
             // Call real Claude API
             const response = await callClaudeAPI(message);
@@ -1712,45 +1709,15 @@
     }
 
     async function callClaudeAPI(userMessage) {
-      const systemPrompt = currentLang === 'zh'
-        ? `你是ELA English的智能客服助手。ELA是一家专业的教育咨询机构，核心团队由成功企业家和商业领袖组成。
-
-我们的服务包括：
-- 商业领袖导师团队：具备创业、企业运营、市场拓展和战略管理实战经验
-- 真实商业沉浸式体验：由成功企业家领导的真实项目
-- 学术规划与申请：从初中学术规划到大学转学的全周期支持
-- AI驱动智能规划：商业战略团队和技术专家打造的AI规划引擎
-- 语言能力提升：英语能力培养
-- 标准化考试准备：TOEFL、IELTS、SAT等考试辅导
-
-请用友好、专业的语气回答用户问题。回答要简洁明了，重点突出ELA的独特优势（企业家背景团队、真实商业项目体验）。`
-        : `You are an AI customer service assistant for ELA English. ELA is a professional education consulting organization with a core team of successful entrepreneurs and business leaders.
-
-Our services include:
-- Business Leader Mentoring Team: Mentors with practical experience in entrepreneurship, business operations, market expansion and strategic management
-- Real Business Immersion Experience: Real projects led by successful entrepreneurs
-- Academic Planning & Application: Full-cycle support from middle school academic planning to college transfer
-- AI-Driven Intelligent Planning: AI planning engine created by business strategy team and technical experts
-- Language Excellence: English proficiency development
-- Test Preparation: TOEFL, IELTS, SAT and other test tutoring
-
-Please answer user questions in a friendly and professional tone. Keep responses concise and highlight ELA's unique advantages (entrepreneur background team, real business project experience).`;
-
-      const response = await fetch(AI_CONFIG.apiUrl, {
+      // Call Vercel serverless function instead of Anthropic API directly
+      const response = await fetch(AI_CONFIG.apiEndpoint, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': AI_CONFIG.apiKey,
-          'anthropic-version': '2023-06-01'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: AI_CONFIG.model,
-          max_tokens: 1024,
-          system: systemPrompt,
-          messages: [{
-            role: 'user',
-            content: userMessage
-          }]
+          message: userMessage,
+          language: currentLang
         })
       });
 
@@ -1759,7 +1726,12 @@ Please answer user questions in a friendly and professional tone. Keep responses
       }
 
       const data = await response.json();
-      return data.content[0].text;
+
+      if (!data.success) {
+        throw new Error(data.error || 'Unknown error');
+      }
+
+      return data.message;
     }
 
     async function sendQuickMessage(type) {

@@ -1,6 +1,7 @@
 {
   "name": "ela-website-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Backend proxy server for ELA English website AI chatbot",
   "main": "server.js",
   "scripts": {
