@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ELA English - 帮助学生找到方向、建立真实能力、理解世界</title>
+  <title>ELA English | 帮助学生找到方向、建立真实能力、理解世界</title>
   <style>
     * {
       margin: 0;
@@ -12,416 +12,698 @@
     }
 
     body {
-      font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
       color: #333;
       line-height: 1.6;
+      background: #fff;
+      overflow-x: hidden;
     }
 
-    .website-container {
-      width: 100%;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    }
-
-    /* 导航栏 */
+    /* Navigation with City Skyline */
     .navbar {
-      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 100;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+      transition: all 0.3s ease;
+      overflow: hidden;
     }
 
-    .nav-content {
-      max-width: 1200px;
+    .navbar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 80"><defs><linearGradient id="skyGrad" x1="0%25" y1="0%25" x2="100%25" y2="0%25"><stop offset="0%25" style="stop-color:%23003d6a;stop-opacity:0.03"/><stop offset="50%25" style="stop-color:%2300568f;stop-opacity:0.05"/><stop offset="100%25" style="stop-color:%23003d6a;stop-opacity:0.03"/></linearGradient></defs><rect width="1600" height="80" fill="url(%23skyGrad)"/><g fill="%23003d6a" opacity="0.08"><rect x="50" y="35" width="15" height="45"/><rect x="68" y="25" width="18" height="55"/><rect x="89" y="30" width="12" height="50"/><rect x="104" y="20" width="20" height="60"/><rect x="127" y="28" width="16" height="52"/><rect x="200" y="32" width="14" height="48"/><rect x="217" y="22" width="19" height="58"/></g></svg>') repeat-x center;
+      opacity: 1;
+      z-index: -1;
+    }
+
+    .navbar.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    .navbar.scrolled::before {
+      opacity: 0.7;
+    }
+
+    .nav-container {
+      max-width: 1400px;
       margin: 0 auto;
+      padding: 0 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      height: 80px;
+      position: relative;
+      z-index: 1;
     }
 
     .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-size: 28px;
+      font-weight: 600;
+      color: #003d6a;
+      letter-spacing: -0.5px;
+      position: relative;
+      cursor: pointer;
     }
 
-    .logo-icon {
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
       width: 40px;
-      height: 40px;
-      background: white;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #2C5F8D;
-      font-size: 0.9rem;
+      height: 3px;
+      background: linear-gradient(90deg, #003d6a, transparent);
     }
 
     .nav-menu {
       display: flex;
-      gap: 1.5rem;
       list-style: none;
-      flex-wrap: wrap;
-    }
-
-    .nav-item {
-      color: white;
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .nav-item:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 1rem;
+      gap: 40px;
       align-items: center;
     }
 
+    .nav-menu a {
+      text-decoration: none;
+      color: #333;
+      font-size: 15px;
+      font-weight: 400;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-menu a:hover {
+      color: #003d6a;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: #003d6a;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
     .language-switch {
-      background: rgba(255,255,255,0.2);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(0, 61, 106, 0.1);
+      color: #003d6a;
+      padding: 8px 18px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 61, 106, 0.2);
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: 500;
+      font-size: 14px;
     }
 
     .language-switch:hover {
-      background: rgba(255,255,255,0.3);
+      background: #003d6a;
+      color: white;
       transform: translateY(-2px);
     }
 
-    .cta-button {
-      background: #D35400;
-      color: white;
-      padding: 0.7rem 1.5rem;
-      border-radius: 25px;
+    .nav-cta {
+      background: #003d6a !important;
+      color: white !important;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: all 0.3s ease;
       border: none;
-      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-cta:hover {
+      background: #00568f !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,61,106,0.3);
+    }
+
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    /* Hero Section with Enhanced Design */
+    .hero {
+      margin-top: 80px;
+      height: 650px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23ffffff" opacity="0.03" width="1200" height="600"/><path d="M0 300 Q300 100 600 300 T1200 300" stroke="%23ffffff" stroke-width="2" fill="none" opacity="0.1"/></svg>') center/cover;
+      opacity: 0.3;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 400px;
+      height: 400px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+
+    .hero-decoration {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .hero-decoration .line {
+      position: absolute;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero-decoration .line-1 {
+      width: 2px;
+      height: 200px;
+      left: 15%;
+      top: 20%;
+      transform: rotate(15deg);
+    }
+
+    .hero-decoration .line-2 {
+      width: 150px;
+      height: 2px;
+      right: 10%;
+      bottom: 30%;
+      transform: rotate(-25deg);
+    }
+
+    .hero-decoration .circle {
+      position: absolute;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+    }
+
+    .hero-decoration .circle-1 {
+      width: 60px;
+      height: 60px;
+      left: 8%;
+      bottom: 15%;
+    }
+
+    .hero-decoration .circle-2 {
+      width: 120px;
+      height: 120px;
+      right: 20%;
+      top: 10%;
+    }
+
+    .hero-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 1;
+      color: white;
+    }
+
+    .hero-tag {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0.9;
+      font-weight: 500;
+      display: inline-block;
+      padding-left: 60px;
+      position: relative;
+    }
+
+    .hero-tag::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 2px;
+      background: white;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      max-width: 800px;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 strong {
+      font-weight: 600;
+      position: relative;
+    }
+
+    .hero h1 strong::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      z-index: -1;
+    }
+
+    .hero-description {
+      font-size: 20px;
+      line-height: 1.6;
+      max-width: 700px;
+      margin-bottom: 40px;
+      opacity: 0.95;
+      font-weight: 300;
+      border-left: 3px solid rgba(255,255,255,0.5);
+      padding-left: 20px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 16px 36px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(211,84,0,0.3);
-      white-space: nowrap;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .cta-button:hover {
-      background: #E66100;
+    .btn-primary {
+      background: white;
+      color: #003d6a;
+    }
+
+    .btn-primary:hover {
+      background: #f5f5f5;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(211,84,0,0.4);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
 
-    /* Hero区域 */
-    .hero-section {
-      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+    .btn-secondary {
+      background: transparent;
       color: white;
-      padding: 4rem 2rem;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 100px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      width: 60px;
+      height: 60px;
+      border-top: 3px solid #003d6a;
+      border-left: 3px solid #003d6a;
+      opacity: 0.15;
+    }
+
+    .section::after {
+      content: '';
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      border-bottom: 3px solid #003d6a;
+      border-right: 3px solid #003d6a;
+      opacity: 0.15;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+      position: relative;
+    }
+
+    .section-tag {
+      font-size: 13px;
+      color: #003d6a;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-tag::before,
+    .section-tag::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 30px;
+      height: 2px;
+      background: #003d6a;
+      opacity: 0.3;
+    }
+
+    .section-tag::before {
+      right: 100%;
+      margin-right: 15px;
+    }
+
+    .section-tag::after {
+      left: 100%;
+      margin-left: 15px;
+    }
+
+    .section-title {
+      font-size: 42px;
+      color: #1a1a1a;
+      font-weight: 300;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #003d6a, transparent);
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+      margin-top: 30px;
+    }
+
+    /* Highlight Section (Differentiators) */
+    .highlight-section {
+      background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);
+      padding: 80px 40px;
+      position: relative;
+    }
+
+    .highlight-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 200"><circle cx="100" cy="50" r="3" fill="%23D35400" opacity="0.1"/><circle cx="300" cy="80" r="2" fill="%23D35400" opacity="0.1"/><circle cx="500" cy="40" r="3" fill="%23D35400" opacity="0.1"/></svg>') repeat-x;
+    }
+
+    .highlight-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .highlight-title {
+      font-size: 36px;
+      color: #D35400;
+      margin-bottom: 20px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .highlight-subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 50px;
+      line-height: 1.7;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .highlight-item {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 8px;
+      box-shadow: 0 3px 15px rgba(211,84,0,0.1);
+      transition: all 0.3s ease;
+      border-top: 3px solid #D35400;
+    }
+
+    .highlight-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(211,84,0,0.2);
+    }
+
+    .highlight-item h4 {
+      color: #D35400;
+      font-size: 20px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .highlight-item p {
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid #e8e8e8;
+      padding: 50px 40px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: #003d6a;
+      transition: height 0.4s ease;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-top: 2px solid #f0f6fa;
+      border-right: 2px solid #f0f6fa;
+      transition: all 0.4s ease;
+    }
+
+    .service-card:hover {
+      border-color: #003d6a;
+      box-shadow: 0 10px 40px rgba(0,61,106,0.1);
+      transform: translateY(-5px);
+    }
+
+    .service-card:hover::before {
+      height: 100%;
+    }
+
+    .service-card:hover::after {
+      border-color: #003d6a;
+      width: 50px;
+      height: 50px;
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: #f0f6fa;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      color: #003d6a;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .service-icon::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border: 2px solid #003d6a;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-card:hover .service-icon {
+      background: #003d6a;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .service-card:hover .service-icon::before {
+      opacity: 0.2;
+    }
+
+    .service-card h3 {
+      font-size: 24px;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .service-card p {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .service-link {
+      color: #003d6a;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s ease;
+    }
+
+    .service-link:hover {
+      gap: 12px;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: #003d6a;
+      color: white;
+      padding: 80px 40px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .hero-content {
-      max-width: 1000px;
+    .stats-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 300"><line x1="0" y1="150" x2="1400" y2="150" stroke="%23ffffff" stroke-width="1" opacity="0.1"/><circle cx="350" cy="150" r="100" stroke="%23ffffff" stroke-width="2" fill="none" opacity="0.05"/></svg>') center/cover;
+      opacity: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 60px;
+      max-width: 1200px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
-    .hero-title {
-      font-size: 3rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      animation: fadeInUp 1s ease;
-    }
-
-    .hero-subtitle {
-      font-size: 1.3rem;
-      margin-bottom: 2rem;
-      opacity: 0.95;
-      line-height: 1.8;
-      animation: fadeInUp 1s ease 0.2s both;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin: 2rem 0;
-      animation: fadeInUp 1s ease 0.4s both;
-    }
-
-    .tag {
-      background: rgba(255,255,255,0.2);
-      padding: 0.5rem 1.2rem;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .hero-cta {
-      margin-top: 2rem;
-      animation: fadeInUp 1s ease 0.6s both;
-    }
-
-    .hero-cta button {
-      background: #D35400;
-      color: white;
-      padding: 1rem 3rem;
-      border-radius: 30px;
-      border: none;
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 25px rgba(211,84,0,0.4);
-    }
-
-    .hero-cta button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(211,84,0,0.5);
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* 差异化优势板块 */
-    .highlight-section {
-      background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);
-      padding: 3rem 2rem;
-    }
-
-    .highlight-content {
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .highlight-title {
-      font-size: 2rem;
-      color: #D35400;
-      margin-bottom: 1rem;
-      font-weight: bold;
-    }
-
-    .highlight-subtitle {
-      font-size: 1.1rem;
-      color: #666;
-      margin-bottom: 2rem;
-    }
-
-    .highlight-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .highlight-item {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 3px 15px rgba(211,84,0,0.1);
-      transition: all 0.3s ease;
-    }
-
-    .highlight-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 20px rgba(211,84,0,0.2);
-    }
-
-    .highlight-item h4 {
-      color: #D35400;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .highlight-item p {
-      color: #666;
-      font-size: 0.95rem;
-    }
-
-    /* 特色板块 */
-    .features-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2.5rem;
-      color: #2C5F8D;
-      margin-bottom: 3rem;
-      font-weight: bold;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+    .stat-item {
       position: relative;
-      overflow: hidden;
+      padding: 30px 20px;
     }
 
-    .feature-card::before {
+    .stat-item::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 0;
-      width: 5px;
-      height: 100%;
-      background: linear-gradient(180deg, #D35400 0%, #2C5F8D 100%);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .feature-title {
-      font-size: 1.5rem;
-      color: #2C5F8D;
-      margin-bottom: 1rem;
-      font-weight: bold;
-    }
-
-    .feature-description {
-      color: #666;
-      line-height: 1.8;
-    }
-
-    /* 服务项目板块 */
-    .services-section {
-      background: linear-gradient(135deg, #E8F4F8 0%, #D6E9F0 100%);
-      padding: 4rem 2rem;
-    }
-
-    .services-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .service-categories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .service-category {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
       background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+      opacity: 0.3;
     }
 
-    .service-category:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    .stat-item h3 {
+      font-size: 56px;
+      font-weight: 300;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
     }
 
-    .service-category h3 {
-      color: #2C5F8D;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .stat-item p {
+      font-size: 16px;
+      opacity: 0.9;
+      font-weight: 300;
     }
 
-    .service-list {
-      list-style: none;
-      color: #666;
-      line-height: 2;
-    }
-
-    .service-list li:before {
-      content: "✓ ";
-      color: #D35400;
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-
-    /* 页脚 */
-    .footer {
-      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
-      color: white;
-      padding: 3rem 2rem 2rem;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .footer-section h3 {
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
-    }
-
-    .footer-section p, .footer-section a {
-      color: rgba(255,255,255,0.9);
-      line-height: 1.8;
-      text-decoration: none;
-    }
-
-    .footer-section a:hover {
-      color: #D35400;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.8);
-    }
-
-    /* 智能助手 */
+    /* AI Assistant */
     .ai-assistant-float {
       position: fixed;
       bottom: 30px;
@@ -430,13 +712,13 @@
     }
 
     .assistant-button {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #3A7CA5 0%, #2C5F8D 100%);
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
       border: none;
       cursor: pointer;
-      box-shadow: 0 5px 25px rgba(44,95,141,0.4);
+      box-shadow: 0 5px 25px rgba(0,61,106,0.4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -446,7 +728,7 @@
 
     .assistant-button:hover {
       transform: scale(1.1);
-      box-shadow: 0 8px 30px rgba(44,95,141,0.5);
+      box-shadow: 0 8px 30px rgba(0,61,106,0.5);
     }
 
     .assistant-button::after {
@@ -472,12 +754,12 @@
 
     .assistant-chat {
       position: absolute;
-      bottom: 100px;
+      bottom: 90px;
       right: 0;
       width: 400px;
       max-width: calc(100vw - 60px);
       background: white;
-      border-radius: 20px;
+      border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
       overflow: hidden;
       transform-origin: bottom right;
@@ -501,9 +783,9 @@
     }
 
     .chat-header {
-      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
       color: white;
-      padding: 1.5rem;
+      padding: 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -512,16 +794,16 @@
     .chat-header-left {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 12px;
     }
 
     .chat-info h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
+      font-size: 16px;
+      margin-bottom: 4px;
     }
 
     .chat-info p {
-      font-size: 0.9rem;
+      font-size: 13px;
       opacity: 0.9;
     }
 
@@ -529,9 +811,9 @@
       background: none;
       border: none;
       color: white;
-      font-size: 1.5rem;
+      font-size: 24px;
       cursor: pointer;
-      padding: 0.5rem;
+      padding: 5px;
       line-height: 1;
       transition: all 0.3s ease;
     }
@@ -542,7 +824,7 @@
     }
 
     .chat-messages {
-      padding: 1.5rem;
+      padding: 20px;
       max-height: 400px;
       overflow-y: auto;
       background: #f8f9fa;
@@ -550,22 +832,23 @@
 
     .chat-message {
       background: white;
-      padding: 1rem;
-      border-radius: 15px;
-      margin-bottom: 1rem;
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
       animation: messageSlide 0.3s ease;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      line-height: 1.6;
     }
 
     .chat-message.user {
-      background: linear-gradient(135deg, #3A7CA5 0%, #2C5F8D 100%);
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
       color: white;
-      margin-left: 2rem;
+      margin-left: 40px;
     }
 
     .chat-message.bot {
       background: white;
-      margin-right: 2rem;
+      margin-right: 40px;
     }
 
     @keyframes messageSlide {
@@ -580,431 +863,556 @@
     }
 
     .quick-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-top: 1rem;
-      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 0 20px 20px;
     }
 
     .quick-action-btn {
       background: white;
-      border: 2px solid #3A7CA5;
-      color: #2C5F8D;
-      padding: 0.7rem;
-      border-radius: 10px;
+      border: 2px solid #003d6a;
+      color: #003d6a;
+      padding: 10px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
-      text-align: left;
+      text-align: center;
       font-weight: 500;
+      font-size: 13px;
     }
 
     .quick-action-btn:hover {
-      background: #3A7CA5;
+      background: #003d6a;
       color: white;
+      transform: translateY(-2px);
     }
 
     .chat-input-container {
-      padding: 1rem 1.5rem;
+      padding: 15px 20px;
       background: white;
       border-top: 1px solid #e0e0e0;
       display: flex;
-      gap: 0.5rem;
+      gap: 10px;
     }
 
     .chat-input {
       flex: 1;
-      padding: 0.7rem 1rem;
+      padding: 10px 15px;
       border: 2px solid #e0e0e0;
       border-radius: 20px;
       outline: none;
-      font-size: 0.95rem;
+      font-size: 14px;
       transition: all 0.3s ease;
     }
 
     .chat-input:focus {
-      border-color: #3A7CA5;
+      border-color: #003d6a;
     }
 
     .chat-send-btn {
-      background: linear-gradient(135deg, #3A7CA5 0%, #2C5F8D 100%);
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
       color: white;
       border: none;
-      padding: 0.7rem 1.5rem;
+      padding: 10px 20px;
       border-radius: 20px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
       transition: all 0.3s ease;
     }
 
     .chat-send-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(58,124,165,0.4);
+      box-shadow: 0 4px 12px rgba(0,61,106,0.4);
     }
 
     .typing-indicator {
       display: none;
-      padding: 1rem;
+      padding: 10px 20px;
       color: #666;
       font-style: italic;
+      font-size: 13px;
     }
 
     .typing-indicator.show {
       display: block;
     }
 
-    /* 响应式设计 */
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 80px 40px 40px;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #003d6a, #00568f, #003d6a);
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand {
+      color: white;
+    }
+
+    .footer-brand h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: white;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-brand h3::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: #003d6a;
+    }
+
+    .footer-brand p {
+      line-height: 1.7;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+
+    .footer-section h4 {
+      color: white;
+      font-size: 16px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer-section h4::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 20px;
+      background: #003d6a;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      color: #999;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 15px;
+      padding-left: 15px;
+      display: inline-block;
+    }
+
+    .footer-section a:hover {
+      color: white;
+      padding-left: 20px;
+    }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 40px;
+      border-top: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       .nav-menu {
         display: none;
       }
 
-      .hero-title {
-        font-size: 2rem;
+      .nav-container {
+        padding: 0 20px;
       }
 
-      .hero-subtitle {
-        font-size: 1.1rem;
+      .hero {
+        height: auto;
+        padding: 80px 20px;
       }
 
-      .features-grid {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-description {
+        font-size: 16px;
+      }
+
+      .hero-decoration {
+        display: none;
+      }
+
+      .section {
+        padding: 60px 20px;
+      }
+
+      .section-title {
+        font-size: 32px;
+      }
+
+      .services-grid {
         grid-template-columns: 1fr;
-      }
-
-      .assistant-chat {
-        width: calc(100vw - 40px);
-        right: -10px;
       }
 
       .highlight-grid {
         grid-template-columns: 1fr;
       }
 
-      .service-categories {
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .section::before,
+      .section::after {
+        display: none;
+      }
+
+      .quick-actions {
         grid-template-columns: 1fr;
       }
-    }
-
-    /* 隐藏类 */
-    .hidden {
-      display: none !important;
     }
   </style>
 </head>
 <body>
-  <div class="website-container">
-    <!-- 导航栏 -->
-    <nav class="navbar">
-      <div class="nav-content">
-        <div class="logo">
-          <div class="logo-icon">ELA</div>
-          <span data-i18n="brand">ELA English</span>
-        </div>
-        <ul class="nav-menu">
-          <li class="nav-item" data-i18n="nav.home">首页</li>
-          <li class="nav-item" data-i18n="nav.why">Why ELA</li>
-          <li class="nav-item" data-i18n="nav.services">服务项目</li>
-          <li class="nav-item" data-i18n="nav.immersion">沉浸式项目</li>
-          <li class="nav-item" data-i18n="nav.ai">AI引擎</li>
-          <li class="nav-item" data-i18n="nav.mentors">导师团队</li>
-          <li class="nav-item" data-i18n="nav.parents">致家长</li>
-          <li class="nav-item" data-i18n="nav.contact">联系我们</li>
-        </ul>
-        <div class="nav-actions">
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="logo" data-i18n="brand">ELA English</div>
+      <ul class="nav-menu">
+        <li><a href="#why-ela" data-i18n="nav.why">Why ELA</a></li>
+        <li><a href="#services" data-i18n="nav.services">服务项目</a></li>
+        <li><a href="#immersion" data-i18n="nav.immersion">沉浸式项目</a></li>
+        <li><a href="#about" data-i18n="nav.about">关于我们</a></li>
+        <li>
           <button class="language-switch" onclick="toggleLanguage()">
             <span id="langText">EN</span>
           </button>
-          <button class="cta-button" data-i18n="cta.consultation">预约咨询</button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Hero区域 -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <h1 class="hero-title" data-i18n="hero.title">
-          帮助学生找到方向、建立真实能力、理解世界
-        </h1>
-        <p class="hero-subtitle" data-i18n="hero.subtitle">
-          由具备创业、企业运营、市场拓展与战略管理经验的专业团队领导<br/>
-          ELA提供学术发展、申请成功和真实商业成长的完整路径
-        </p>
-        <div class="hero-tags">
-          <span class="tag" data-i18n="tags.application">🎓 留学申请</span>
-          <span class="tag" data-i18n="tags.transfer">🔄 转学路径</span>
-          <span class="tag" data-i18n="tags.planning">📊 学术规划</span>
-          <span class="tag" data-i18n="tags.tutoring">📚 专业辅导</span>
-          <span class="tag" data-i18n="tags.immersion">🚀 沉浸式项目</span>
-          <span class="tag" data-i18n="tags.ai">🤖 AI学习引擎</span>
-        </div>
-        <div class="hero-cta">
-          <button data-i18n="hero.cta">立即开始您的成长之旅</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 核心差异化优势 -->
-    <section class="highlight-section">
-      <div class="highlight-content">
-        <h2 class="highlight-title" data-i18n="highlight.title">
-          🏆 与传统留学机构不同，ELA的核心团队由成功企业家和商业领袖组成
-        </h2>
-        <p class="highlight-subtitle" data-i18n="highlight.subtitle">
-          我们的团队成员拥有创业成功经验、上市公司运营背景、市场拓展实战和战略规划管理能力
-        </p>
-        <div class="highlight-grid">
-          <div class="highlight-item">
-            <h4 data-i18n="highlight.item1.title">💡 企业家思维</h4>
-            <p data-i18n="highlight.item1.desc">理解商业本质和战略决策</p>
-          </div>
-          <div class="highlight-item">
-            <h4 data-i18n="highlight.item2.title">🎯 真实商业环境</h4>
-            <p data-i18n="highlight.item2.desc">参与实际项目运营</p>
-          </div>
-          <div class="highlight-item">
-            <h4 data-i18n="highlight.item3.title">📈 市场机会把握</h4>
-            <p data-i18n="highlight.item3.desc">培养商业敏感度和执行力</p>
-          </div>
-          <div class="highlight-item">
-            <h4 data-i18n="highlight.item4.title">🗺️ 战略规划能力</h4>
-            <p data-i18n="highlight.item4.desc">掌握长期目标设定方法</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 核心特色 -->
-    <section class="features-section">
-      <h2 class="section-title" data-i18n="features.title">ELA核心优势</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🏢</div>
-          <h3 class="feature-title" data-i18n="features.feature1.title">商业领袖背景的导师团队</h3>
-          <p class="feature-description" data-i18n="features.feature1.desc">
-            具备创业、企业运营、市场拓展和战略管理实战经验的导师，为学生提供超越传统教育的商业视角和实践指导
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🎓</div>
-          <h3 class="feature-title" data-i18n="features.feature2.title">熟悉美国教育体系</h3>
-          <p class="feature-description" data-i18n="features.feature2.desc">
-            深度了解美国教育体系、长期规划方法和学生发展规律的专业团队
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🤖</div>
-          <h3 class="feature-title" data-i18n="features.feature3.title">AI驱动的智能规划系统</h3>
-          <p class="feature-description" data-i18n="features.feature3.desc">
-            由商业战略团队和技术专家共同打造的AI规划引擎，提升规划一致性和执行清晰度
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3 class="feature-title" data-i18n="features.feature4.title">真实商业沉浸式体验</h3>
-          <p class="feature-description" data-i18n="features.feature4.desc">
-            由成功企业家领导的真实项目，学习战略框架和决策方法，建立可验证的商业能力
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3 class="feature-title" data-i18n="features.feature5.title">完整发展路径</h3>
-          <p class="feature-description" data-i18n="features.feature5.desc">
-            从初中学术规划到大学转学，再到职业探索的全周期支持
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">💪</div>
-          <h3 class="feature-title" data-i18n="features.feature6.title">贴合现实的能力培养</h3>
-          <p class="feature-description" data-i18n="features.feature6.desc">
-            基于真实商业环境设计的培养体系，提升判断力、适应力、沟通能力和战略思维
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 服务项目 -->
-    <section class="services-section">
-      <div class="services-content">
-        <h2 class="section-title" data-i18n="services.title">服务项目</h2>
-        <div class="service-categories">
-          <div class="service-category">
-            <h3 data-i18n="services.category1.title">📚 学术规划与辅导</h3>
-            <ul class="service-list">
-              <li data-i18n="services.category1.item1">初高中课程规划</li>
-              <li data-i18n="services.category1.item2">学科专业辅导</li>
-              <li data-i18n="services.category1.item3">标准化考试准备</li>
-              <li data-i18n="services.category1.item4">学习方法优化</li>
-            </ul>
-          </div>
-
-          <div class="service-category">
-            <h3 data-i18n="services.category2.title">🎓 留学申请服务</h3>
-            <ul class="service-list">
-              <li data-i18n="services.category2.item1">美国本科申请</li>
-              <li data-i18n="services.category2.item2">美国研究生申请</li>
-              <li data-i18n="services.category2.item3">转学申请指导</li>
-              <li data-i18n="services.category2.item4">文书策划与撰写</li>
-            </ul>
-          </div>
-
-          <div class="service-category">
-            <h3 data-i18n="services.category3.title">🚀 沉浸式商业项目</h3>
-            <ul class="service-list">
-              <li data-i18n="services.category3.item1">真实创业项目参与</li>
-              <li data-i18n="services.category3.item2">商业战略实践</li>
-              <li data-i18n="services.category3.item3">市场拓展体验</li>
-              <li data-i18n="services.category3.item4">企业家导师指导</li>
-            </ul>
-          </div>
-
-          <div class="service-category">
-            <h3 data-i18n="services.category4.title">🤖 AI学习引擎</h3>
-            <ul class="service-list">
-              <li data-i18n="services.category4.item1">智能规划系统</li>
-              <li data-i18n="services.category4.item2">个性化学习路径</li>
-              <li data-i18n="services.category4.item3">进度跟踪分析</li>
-              <li data-i18n="services.category4.item4">24/7在线支持</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3 data-i18n="footer.about.title">关于ELA</h3>
-          <p data-i18n="footer.about.desc">
-            ELA English致力于为学生提供全方位的教育规划和能力培养服务，帮助他们在学术和职业发展中取得成功。
-          </p>
-        </div>
-
-        <div class="footer-section">
-          <h3 data-i18n="footer.contact.title">联系方式</h3>
-          <p data-i18n="footer.contact.email">邮箱: info@ela-english.com</p>
-          <p data-i18n="footer.contact.phone">电话: +1 (XXX) XXX-XXXX</p>
-          <p data-i18n="footer.contact.wechat">微信: ELA_English</p>
-        </div>
-
-        <div class="footer-section">
-          <h3 data-i18n="footer.quicklinks.title">快速链接</h3>
-          <p><a href="#" data-i18n="footer.quicklinks.about">关于我们</a></p>
-          <p><a href="#" data-i18n="footer.quicklinks.services">服务项目</a></p>
-          <p><a href="#" data-i18n="footer.quicklinks.success">成功案例</a></p>
-          <p><a href="#" data-i18n="footer.quicklinks.blog">博客资讯</a></p>
-        </div>
-
-        <div class="footer-section">
-          <h3 data-i18n="footer.followus.title">关注我们</h3>
-          <p data-i18n="footer.followus.wechat">微信公众号</p>
-          <p data-i18n="footer.followus.linkedin">LinkedIn</p>
-          <p data-i18n="footer.followus.instagram">Instagram</p>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p data-i18n="footer.copyright">&copy; 2024 ELA English. All rights reserved.</p>
-      </div>
-    </footer>
-
-    <!-- 智能助手悬浮按钮 -->
-    <div class="ai-assistant-float">
-      <div class="assistant-chat" id="assistantChat">
-        <div class="chat-header">
-          <div class="chat-header-left">
-            <svg width="50" height="50" viewBox="0 0 120 120">
-              <circle cx="60" cy="45" r="28" fill="#3A7CA5" />
-              <line x1="60" y1="17" x2="60" y2="8" stroke="#D35400" stroke-width="3" stroke-linecap="round" />
-              <circle cx="60" cy="6" r="4" fill="#D35400" />
-              <circle cx="52" cy="42" r="4" fill="white" />
-              <circle cx="68" cy="42" r="4" fill="white" />
-              <circle cx="53" cy="42" r="2" fill="#2C5F8D" />
-              <circle cx="69" cy="42" r="2" fill="#2C5F8D" />
-              <path d="M 48 52 Q 60 58 72 52" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" />
-              <path d="M 40 73 L 80 73 L 85 95 L 35 95 Z" fill="#2C5F8D" />
-              <text x="60" y="88" font-size="14" fill="white" text-anchor="middle" font-weight="bold">AI</text>
-              <rect x="30" y="75" width="8" height="25" rx="4" fill="#3A7CA5" />
-              <rect x="82" y="75" width="8" height="25" rx="4" fill="#3A7CA5" />
-            </svg>
-            <div class="chat-info">
-              <h3 data-i18n="chatbot.title">ELA智能助手</h3>
-              <p data-i18n="chatbot.status">24/7在线为您服务</p>
-            </div>
-          </div>
-          <button class="chat-close" onclick="toggleChat()">×</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="chat-message bot">
-            <span data-i18n="chatbot.welcome">👋 您好！我是ELA智能助手，很高兴为您服务！</span><br/><br/>
-            <span data-i18n="chatbot.intro">我可以帮您：</span><br/>
-            <span data-i18n="chatbot.help1">✓ 了解我们的服务项目</span><br/>
-            <span data-i18n="chatbot.help2">✓ 预约一对一咨询</span><br/>
-            <span data-i18n="chatbot.help3">✓ 下载项目手册</span><br/>
-            <span data-i18n="chatbot.help4">✓ 解答常见问题</span>
-          </div>
-        </div>
-        <div class="typing-indicator" id="typingIndicator">
-          <span data-i18n="chatbot.typing">正在输入...</span>
-        </div>
-        <div class="quick-actions">
-          <button class="quick-action-btn" onclick="sendQuickMessage('application')" data-i18n="chatbot.quick1">📚 了解留学申请服务</button>
-          <button class="quick-action-btn" onclick="sendQuickMessage('immersion')" data-i18n="chatbot.quick2">🚀 沉浸式项目详情</button>
-          <button class="quick-action-btn" onclick="sendQuickMessage('consultation')" data-i18n="chatbot.quick3">📅 预约免费咨询</button>
-          <button class="quick-action-btn" onclick="sendQuickMessage('faq')" data-i18n="chatbot.quick4">❓ 常见问题</button>
-        </div>
-        <div class="chat-input-container">
-          <input type="text" class="chat-input" id="chatInput" placeholder="输入您的问题..." data-i18n-placeholder="chatbot.placeholder" onkeypress="handleKeyPress(event)">
-          <button class="chat-send-btn" onclick="sendMessage()" data-i18n="chatbot.send">发送</button>
-        </div>
-      </div>
-      <button class="assistant-button" id="assistantBtn" onclick="toggleChat()">
-        <svg width="60" height="60" viewBox="0 0 120 120">
-          <circle cx="60" cy="45" r="28" fill="white" />
-          <line x1="60" y1="17" x2="60" y2="8" stroke="#D35400" stroke-width="3" stroke-linecap="round" />
-          <circle cx="60" cy="6" r="4" fill="#D35400" />
-          <circle cx="52" cy="42" r="4" fill="#E8F4F8" />
-          <circle cx="68" cy="42" r="4" fill="#E8F4F8" />
-          <circle cx="53" cy="42" r="2" fill="#2C5F8D" />
-          <circle cx="69" cy="42" r="2" fill="#2C5F8D" />
-          <path d="M 48 52 Q 60 58 72 52" stroke="#2C5F8D" stroke-width="2" fill="none" stroke-linecap="round" />
-          <path d="M 40 73 L 80 73 L 85 95 L 35 95 Z" fill="white" />
-          <text x="60" y="88" font-size="14" fill="#2C5F8D" text-anchor="middle" font-weight="bold">AI</text>
-          <rect x="30" y="75" width="8" height="25" rx="4" fill="white" opacity="0.8" />
-          <rect x="82" y="75" width="8" height="25" rx="4" fill="white" opacity="0.8" />
-        </svg>
-      </button>
+        </li>
+        <li><button class="nav-cta" data-i18n="nav.cta">预约咨询</button></li>
+      </ul>
     </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-decoration">
+      <div class="line line-1"></div>
+      <div class="line line-2"></div>
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag" data-i18n="hero.tag">教育卓越</div>
+      <h1 data-i18n-html="hero.title">帮助学生找到方向、<strong>建立真实能力</strong>、理解世界</h1>
+      <p class="hero-description" data-i18n="hero.description">由具备创业、企业运营、市场拓展与战略管理经验的专业团队领导，ELA提供学术发展、申请成功和真实商业成长的完整路径。</p>
+      <div class="hero-buttons">
+        <a href="#services" class="btn-primary" data-i18n="hero.btn1">探索项目</a>
+        <a href="#why-ela" class="btn-secondary" data-i18n="hero.btn2">了解更多</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlight Section -->
+  <section class="highlight-section" id="why-ela">
+    <div class="highlight-content">
+      <h2 class="highlight-title" data-i18n="highlight.title">🏆 与传统留学机构不同，ELA的核心团队由成功企业家和商业领袖组成</h2>
+      <p class="highlight-subtitle" data-i18n="highlight.subtitle">我们的团队成员拥有创业成功经验、上市公司运营背景、市场拓展实战和战略规划管理能力</p>
+      <div class="highlight-grid">
+        <div class="highlight-item">
+          <h4 data-i18n="highlight.item1.title">💡 企业家思维</h4>
+          <p data-i18n="highlight.item1.desc">理解商业本质和战略决策</p>
+        </div>
+        <div class="highlight-item">
+          <h4 data-i18n="highlight.item2.title">🎯 真实商业环境</h4>
+          <p data-i18n="highlight.item2.desc">参与实际项目运营</p>
+        </div>
+        <div class="highlight-item">
+          <h4 data-i18n="highlight.item3.title">📈 市场机会把握</h4>
+          <p data-i18n="highlight.item3.desc">培养商业敏感度和执行力</p>
+        </div>
+        <div class="highlight-item">
+          <h4 data-i18n="highlight.item4.title">🗺️ 战略规划能力</h4>
+          <p data-i18n="highlight.item4.desc">掌握长期目标设定方法</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section" id="services">
+    <div class="section-header">
+      <div class="section-tag" data-i18n="services.tag">我们的服务</div>
+      <h2 class="section-title" data-i18n="services.title">全方位教育解决方案</h2>
+      <p class="section-subtitle" data-i18n="services.subtitle">我们提供专业化的项目，满足不同的学习需求，从沉浸式项目到个性化学术咨询。</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <h3 data-i18n="services.card1.title">商业领袖导师团队</h3>
+        <p data-i18n="services.card1.desc">具备创业、企业运营、市场拓展和战略管理实战经验的导师，为学生提供超越传统教育的商业视角和实践指导。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🚀</div>
+        <h3 data-i18n="services.card2.title">真实商业沉浸式体验</h3>
+        <p data-i18n="services.card2.desc">由成功企业家领导的真实项目，学习战略框架和决策方法，建立可验证的商业能力。</p>
+        <a href="#immersion" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <h3 data-i18n="services.card3.title">学术规划与申请</h3>
+        <p data-i18n="services.card3.desc">从初中学术规划到大学转学，再到职业探索的全周期支持，深度了解美国教育体系。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3 data-i18n="services.card4.title">AI驱动智能规划</h3>
+        <p data-i18n="services.card4.desc">由商业战略团队和技术专家共同打造的AI规划引擎，提升规划一致性和执行清晰度。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <h3 data-i18n="services.card5.title">语言能力提升</h3>
+        <p data-i18n="services.card5.desc">通过互动课程、实践沟通技巧和真实世界应用，在支持性学习环境中培养真正的英语能力。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏆</div>
+        <h3 data-i18n="services.card6.title">标准化考试准备</h3>
+        <p data-i18n="services.card6.desc">由认证讲师指导的TOEFL、IELTS、SAT等标准化考试综合准备课程，助您达到目标分数。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3 data-i18n="stats.years">15+</h3>
+        <p data-i18n="stats.years.label">年教育经验</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-i18n="stats.students">5,000+</h3>
+        <p data-i18n="stats.students.label">服务学生</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-i18n="stats.success">95%</h3>
+        <p data-i18n="stats.success.label">申请成功率</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-i18n="stats.partners">20+</h3>
+        <p data-i18n="stats.partners.label">合作伙伴</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Immersion Programs Section -->
+  <section class="section" id="immersion">
+    <div class="section-header">
+      <div class="section-tag" data-i18n="immersion.tag">沉浸式项目</div>
+      <h2 class="section-title" data-i18n="immersion.title">真实商业项目体验</h2>
+      <p class="section-subtitle" data-i18n="immersion.subtitle">参与由成功企业家指导的真实商业项目，获得可验证的能力证明。</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🌟</div>
+        <h3 data-i18n="immersion.card1.title">创业项目参与</h3>
+        <p data-i18n="immersion.card1.desc">在真实的创业环境中学习，参与产品开发、市场调研、商业策划等核心环节。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3 data-i18n="immersion.card2.title">商业战略实践</h3>
+        <p data-i18n="immersion.card2.desc">学习企业战略制定、竞争分析、资源配置等关键商业技能。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎯</div>
+        <h3 data-i18n="immersion.card3.title">市场拓展体验</h3>
+        <p data-i18n="immersion.card3.desc">实际参与市场推广、客户开发、销售策略等市场拓展活动。</p>
+        <a href="#" class="service-link" data-i18n="services.link">了解更多 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3 data-i18n="brand">ELA English</h3>
+        <p data-i18n="footer.about">赋能全球学生通过变革性教育体验和专家指导实现卓越。</p>
+        <p style="margin-top: 20px; font-size: 14px;" data-i18n="footer.copyright">© 2024 ELA English. All rights reserved.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4 data-i18n="footer.programs.title">项目</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer.programs.item1">沉浸式项目</a></li>
+          <li><a href="#" data-i18n="footer.programs.item2">学术咨询</a></li>
+          <li><a href="#" data-i18n="footer.programs.item3">考试准备</a></li>
+          <li><a href="#" data-i18n="footer.programs.item4">夏季项目</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4 data-i18n="footer.resources.title">资源</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer.resources.item1">教育洞察</a></li>
+          <li><a href="#" data-i18n="footer.resources.item2">成功案例</a></li>
+          <li><a href="#" data-i18n="footer.resources.item3">合作学校</a></li>
+          <li><a href="#" data-i18n="footer.resources.item4">常见问题</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4 data-i18n="footer.company.title">公司</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer.company.item1">关于我们</a></li>
+          <li><a href="#" data-i18n="footer.company.item2">我们的团队</a></li>
+          <li><a href="#" data-i18n="footer.company.item3">联系我们</a></li>
+          <li><a href="#" data-i18n="footer.company.item4">加入我们</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div data-i18n="footer.legal">隐私政策 | 服务条款</div>
+      <div class="footer-links">
+        <a href="#" data-i18n="footer.social.linkedin">LinkedIn</a>
+        <a href="#" data-i18n="footer.social.wechat">微信</a>
+        <a href="#" data-i18n="footer.social.instagram">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AI Assistant -->
+  <div class="ai-assistant-float">
+    <div class="assistant-chat" id="assistantChat">
+      <div class="chat-header">
+        <div class="chat-header-left">
+          <svg width="40" height="40" viewBox="0 0 120 120">
+            <circle cx="60" cy="45" r="28" fill="#ffffff" />
+            <line x1="60" y1="17" x2="60" y2="8" stroke="#D35400" stroke-width="3" stroke-linecap="round" />
+            <circle cx="60" cy="6" r="4" fill="#D35400" />
+            <circle cx="52" cy="42" r="4" fill="#E8F4F8" />
+            <circle cx="68" cy="42" r="4" fill="#E8F4F8" />
+            <circle cx="53" cy="42" r="2" fill="#003d6a" />
+            <circle cx="69" cy="42" r="2" fill="#003d6a" />
+            <path d="M 48 52 Q 60 58 72 52" stroke="#003d6a" stroke-width="2" fill="none" stroke-linecap="round" />
+            <path d="M 40 73 L 80 73 L 85 95 L 35 95 Z" fill="white" />
+            <text x="60" y="88" font-size="14" fill="#003d6a" text-anchor="middle" font-weight="bold">AI</text>
+          </svg>
+          <div class="chat-info">
+            <h3 data-i18n="chatbot.title">ELA智能助手</h3>
+            <p data-i18n="chatbot.status">24/7在线服务</p>
+          </div>
+        </div>
+        <button class="chat-close" onclick="toggleChat()">×</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message bot">
+          <div data-i18n-html="chatbot.welcome">👋 您好！我是ELA智能助手，很高兴为您服务！<br/><br/>我可以帮您：<br/>✓ 了解我们的服务项目<br/>✓ 预约一对一咨询<br/>✓ 下载项目手册<br/>✓ 解答常见问题</div>
+        </div>
+      </div>
+      <div class="typing-indicator" id="typingIndicator">
+        <span data-i18n="chatbot.typing">正在输入...</span>
+      </div>
+      <div class="quick-actions">
+        <button class="quick-action-btn" onclick="sendQuickMessage('application')" data-i18n="chatbot.quick1">📚 留学申请</button>
+        <button class="quick-action-btn" onclick="sendQuickMessage('immersion')" data-i18n="chatbot.quick2">🚀 沉浸式项目</button>
+        <button class="quick-action-btn" onclick="sendQuickMessage('consultation')" data-i18n="chatbot.quick3">📅 预约咨询</button>
+        <button class="quick-action-btn" onclick="sendQuickMessage('faq')" data-i18n="chatbot.quick4">❓ 常见问题</button>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" id="chatInput" placeholder="输入您的问题..." data-i18n-placeholder="chatbot.placeholder" onkeypress="handleKeyPress(event)">
+        <button class="chat-send-btn" onclick="sendMessage()" data-i18n="chatbot.send">发送</button>
+      </div>
+    </div>
+    <button class="assistant-button" id="assistantBtn" onclick="toggleChat()">
+      <svg width="50" height="50" viewBox="0 0 120 120">
+        <circle cx="60" cy="45" r="28" fill="white" />
+        <line x1="60" y1="17" x2="60" y2="8" stroke="#D35400" stroke-width="3" stroke-linecap="round" />
+        <circle cx="60" cy="6" r="4" fill="#D35400" />
+        <circle cx="52" cy="42" r="4" fill="#E8F4F8" />
+        <circle cx="68" cy="42" r="4" fill="#E8F4F8" />
+        <circle cx="53" cy="42" r="2" fill="#003d6a" />
+        <circle cx="69" cy="42" r="2" fill="#003d6a" />
+        <path d="M 48 52 Q 60 58 72 52" stroke="#003d6a" stroke-width="2" fill="none" stroke-linecap="round" />
+        <path d="M 40 73 L 80 73 L 85 95 L 35 95 Z" fill="white" />
+        <text x="60" y="88" font-size="14" fill="#003d6a" text-anchor="middle" font-weight="bold">AI</text>
+      </svg>
+    </button>
   </div>
 
   <script>
-    // 双语翻译数据
+    // Bilingual translations
     const translations = {
       'zh': {
         'brand': 'ELA English',
-        'nav.home': '首页',
         'nav.why': 'Why ELA',
         'nav.services': '服务项目',
         'nav.immersion': '沉浸式项目',
-        'nav.ai': 'AI引擎',
-        'nav.mentors': '导师团队',
-        'nav.parents': '致家长',
-        'nav.contact': '联系我们',
-        'cta.consultation': '预约咨询',
-        'hero.title': '帮助学生找到方向、建立真实能力、理解世界',
-        'hero.subtitle': '由具备创业、企业运营、市场拓展与战略管理经验的专业团队领导<br/>ELA提供学术发展、申请成功和真实商业成长的完整路径',
-        'hero.cta': '立即开始您的成长之旅',
-        'tags.application': '🎓 留学申请',
-        'tags.transfer': '🔄 转学路径',
-        'tags.planning': '📊 学术规划',
-        'tags.tutoring': '📚 专业辅导',
-        'tags.immersion': '🚀 沉浸式项目',
-        'tags.ai': '🤖 AI学习引擎',
+        'nav.about': '关于我们',
+        'nav.cta': '预约咨询',
+        'hero.tag': '教育卓越',
+        'hero.title': '帮助学生找到方向、<strong>建立真实能力</strong>、理解世界',
+        'hero.description': '由具备创业、企业运营、市场拓展与战略管理经验的专业团队领导，ELA提供学术发展、申请成功和真实商业成长的完整路径。',
+        'hero.btn1': '探索项目',
+        'hero.btn2': '了解更多',
         'highlight.title': '🏆 与传统留学机构不同，ELA的核心团队由成功企业家和商业领袖组成',
         'highlight.subtitle': '我们的团队成员拥有创业成功经验、上市公司运营背景、市场拓展实战和战略规划管理能力',
         'highlight.item1.title': '💡 企业家思维',
@@ -1015,92 +1423,83 @@
         'highlight.item3.desc': '培养商业敏感度和执行力',
         'highlight.item4.title': '🗺️ 战略规划能力',
         'highlight.item4.desc': '掌握长期目标设定方法',
-        'features.title': 'ELA核心优势',
-        'features.feature1.title': '商业领袖背景的导师团队',
-        'features.feature1.desc': '具备创业、企业运营、市场拓展和战略管理实战经验的导师，为学生提供超越传统教育的商业视角和实践指导',
-        'features.feature2.title': '熟悉美国教育体系',
-        'features.feature2.desc': '深度了解美国教育体系、长期规划方法和学生发展规律的专业团队',
-        'features.feature3.title': 'AI驱动的智能规划系统',
-        'features.feature3.desc': '由商业战略团队和技术专家共同打造的AI规划引擎，提升规划一致性和执行清晰度',
-        'features.feature4.title': '真实商业沉浸式体验',
-        'features.feature4.desc': '由成功企业家领导的真实项目，学习战略框架和决策方法，建立可验证的商业能力',
-        'features.feature5.title': '完整发展路径',
-        'features.feature5.desc': '从初中学术规划到大学转学，再到职业探索的全周期支持',
-        'features.feature6.title': '贴合现实的能力培养',
-        'features.feature6.desc': '基于真实商业环境设计的培养体系，提升判断力、适应力、沟通能力和战略思维',
-        'services.title': '服务项目',
-        'services.category1.title': '📚 学术规划与辅导',
-        'services.category1.item1': '初高中课程规划',
-        'services.category1.item2': '学科专业辅导',
-        'services.category1.item3': '标准化考试准备',
-        'services.category1.item4': '学习方法优化',
-        'services.category2.title': '🎓 留学申请服务',
-        'services.category2.item1': '美国本科申请',
-        'services.category2.item2': '美国研究生申请',
-        'services.category2.item3': '转学申请指导',
-        'services.category2.item4': '文书策划与撰写',
-        'services.category3.title': '🚀 沉浸式商业项目',
-        'services.category3.item1': '真实创业项目参与',
-        'services.category3.item2': '商业战略实践',
-        'services.category3.item3': '市场拓展体验',
-        'services.category3.item4': '企业家导师指导',
-        'services.category4.title': '🤖 AI学习引擎',
-        'services.category4.item1': '智能规划系统',
-        'services.category4.item2': '个性化学习路径',
-        'services.category4.item3': '进度跟踪分析',
-        'services.category4.item4': '24/7在线支持',
-        'footer.about.title': '关于ELA',
-        'footer.about.desc': 'ELA English致力于为学生提供全方位的教育规划和能力培养服务，帮助他们在学术和职业发展中取得成功。',
-        'footer.contact.title': '联系方式',
-        'footer.contact.email': '邮箱: info@ela-english.com',
-        'footer.contact.phone': '电话: +1 (XXX) XXX-XXXX',
-        'footer.contact.wechat': '微信: ELA_English',
-        'footer.quicklinks.title': '快速链接',
-        'footer.quicklinks.about': '关于我们',
-        'footer.quicklinks.services': '服务项目',
-        'footer.quicklinks.success': '成功案例',
-        'footer.quicklinks.blog': '博客资讯',
-        'footer.followus.title': '关注我们',
-        'footer.followus.wechat': '微信公众号',
-        'footer.followus.linkedin': 'LinkedIn',
-        'footer.followus.instagram': 'Instagram',
+        'services.tag': '我们的服务',
+        'services.title': '全方位教育解决方案',
+        'services.subtitle': '我们提供专业化的项目，满足不同的学习需求，从沉浸式项目到个性化学术咨询。',
+        'services.card1.title': '商业领袖导师团队',
+        'services.card1.desc': '具备创业、企业运营、市场拓展和战略管理实战经验的导师，为学生提供超越传统教育的商业视角和实践指导。',
+        'services.card2.title': '真实商业沉浸式体验',
+        'services.card2.desc': '由成功企业家领导的真实项目，学习战略框架和决策方法，建立可验证的商业能力。',
+        'services.card3.title': '学术规划与申请',
+        'services.card3.desc': '从初中学术规划到大学转学，再到职业探索的全周期支持，深度了解美国教育体系。',
+        'services.card4.title': 'AI驱动智能规划',
+        'services.card4.desc': '由商业战略团队和技术专家共同打造的AI规划引擎，提升规划一致性和执行清晰度。',
+        'services.card5.title': '语言能力提升',
+        'services.card5.desc': '通过互动课程、实践沟通技巧和真实世界应用，在支持性学习环境中培养真正的英语能力。',
+        'services.card6.title': '标准化考试准备',
+        'services.card6.desc': '由认证讲师指导的TOEFL、IELTS、SAT等标准化考试综合准备课程，助您达到目标分数。',
+        'services.link': '了解更多 →',
+        'stats.years': '15+',
+        'stats.years.label': '年教育经验',
+        'stats.students': '5,000+',
+        'stats.students.label': '服务学生',
+        'stats.success': '95%',
+        'stats.success.label': '申请成功率',
+        'stats.partners': '20+',
+        'stats.partners.label': '合作伙伴',
+        'immersion.tag': '沉浸式项目',
+        'immersion.title': '真实商业项目体验',
+        'immersion.subtitle': '参与由成功企业家指导的真实商业项目，获得可验证的能力证明。',
+        'immersion.card1.title': '创业项目参与',
+        'immersion.card1.desc': '在真实的创业环境中学习，参与产品开发、市场调研、商业策划等核心环节。',
+        'immersion.card2.title': '商业战略实践',
+        'immersion.card2.desc': '学习企业战略制定、竞争分析、资源配置等关键商业技能。',
+        'immersion.card3.title': '市场拓展体验',
+        'immersion.card3.desc': '实际参与市场推广、客户开发、销售策略等市场拓展活动。',
+        'footer.about': '赋能全球学生通过变革性教育体验和专家指导实现卓越。',
         'footer.copyright': '© 2024 ELA English. All rights reserved.',
+        'footer.programs.title': '项目',
+        'footer.programs.item1': '沉浸式项目',
+        'footer.programs.item2': '学术咨询',
+        'footer.programs.item3': '考试准备',
+        'footer.programs.item4': '夏季项目',
+        'footer.resources.title': '资源',
+        'footer.resources.item1': '教育洞察',
+        'footer.resources.item2': '成功案例',
+        'footer.resources.item3': '合作学校',
+        'footer.resources.item4': '常见问题',
+        'footer.company.title': '公司',
+        'footer.company.item1': '关于我们',
+        'footer.company.item2': '我们的团队',
+        'footer.company.item3': '联系我们',
+        'footer.company.item4': '加入我们',
+        'footer.legal': '隐私政策 | 服务条款',
+        'footer.social.linkedin': 'LinkedIn',
+        'footer.social.wechat': '微信',
+        'footer.social.instagram': 'Instagram',
         'chatbot.title': 'ELA智能助手',
-        'chatbot.status': '24/7在线为您服务',
-        'chatbot.welcome': '👋 您好！我是ELA智能助手，很高兴为您服务！',
-        'chatbot.intro': '我可以帮您：',
-        'chatbot.help1': '✓ 了解我们的服务项目',
-        'chatbot.help2': '✓ 预约一对一咨询',
-        'chatbot.help3': '✓ 下载项目手册',
-        'chatbot.help4': '✓ 解答常见问题',
-        'chatbot.quick1': '📚 了解留学申请服务',
-        'chatbot.quick2': '🚀 沉浸式项目详情',
-        'chatbot.quick3': '📅 预约免费咨询',
+        'chatbot.status': '24/7在线服务',
+        'chatbot.welcome': '👋 您好！我是ELA智能助手，很高兴为您服务！<br/><br/>我可以帮您：<br/>✓ 了解我们的服务项目<br/>✓ 预约一对一咨询<br/>✓ 下载项目手册<br/>✓ 解答常见问题',
+        'chatbot.typing': '正在输入...',
+        'chatbot.quick1': '📚 留学申请',
+        'chatbot.quick2': '🚀 沉浸式项目',
+        'chatbot.quick3': '📅 预约咨询',
         'chatbot.quick4': '❓ 常见问题',
         'chatbot.placeholder': '输入您的问题...',
-        'chatbot.send': '发送',
-        'chatbot.typing': '正在输入...'
+        'chatbot.send': '发送'
       },
       'en': {
         'brand': 'ELA English',
-        'nav.home': 'Home',
         'nav.why': 'Why ELA',
         'nav.services': 'Services',
         'nav.immersion': 'Immersion Programs',
-        'nav.ai': 'AI Engine',
-        'nav.mentors': 'Mentors',
-        'nav.parents': 'For Parents',
-        'nav.contact': 'Contact',
-        'cta.consultation': 'Book Consultation',
-        'hero.title': 'Help Students Find Direction, Build Real Skills, Understand the World',
-        'hero.subtitle': 'Led by a professional team with entrepreneurship, business operations, market expansion and strategic management experience<br/>ELA provides a complete path to academic development, application success and real business growth',
-        'hero.cta': 'Start Your Growth Journey Now',
-        'tags.application': '🎓 College Application',
-        'tags.transfer': '🔄 Transfer Pathway',
-        'tags.planning': '📊 Academic Planning',
-        'tags.tutoring': '📚 Professional Tutoring',
-        'tags.immersion': '🚀 Immersion Programs',
-        'tags.ai': '🤖 AI Learning Engine',
+        'nav.about': 'About Us',
+        'nav.cta': 'Get Started',
+        'hero.tag': 'Education Excellence',
+        'hero.title': 'Help Students Find Direction, <strong>Build Real Skills</strong>, Understand the World',
+        'hero.description': 'Led by a professional team with entrepreneurship, business operations, market expansion and strategic management experience, ELA provides a complete path to academic development, application success and real business growth.',
+        'hero.btn1': 'Explore Programs',
+        'hero.btn2': 'Learn More',
         'highlight.title': '🏆 Unlike traditional study abroad agencies, ELA\'s core team consists of successful entrepreneurs and business leaders',
         'highlight.subtitle': 'Our team members have entrepreneurial success experience, listed company operations background, market expansion practice and strategic planning management capabilities',
         'highlight.item1.title': '💡 Entrepreneurial Mindset',
@@ -1111,78 +1510,77 @@
         'highlight.item3.desc': 'Develop business acumen and execution',
         'highlight.item4.title': '🗺️ Strategic Planning Ability',
         'highlight.item4.desc': 'Master long-term goal setting methods',
-        'features.title': 'ELA Core Advantages',
-        'features.feature1.title': 'Business Leader Mentoring Team',
-        'features.feature1.desc': 'Mentors with practical experience in entrepreneurship, business operations, market expansion and strategic management, providing students with business perspectives and practical guidance beyond traditional education',
-        'features.feature2.title': 'Familiar with US Education System',
-        'features.feature2.desc': 'Professional team with deep understanding of the US education system, long-term planning methods and student development patterns',
-        'features.feature3.title': 'AI-Driven Intelligent Planning System',
-        'features.feature3.desc': 'AI planning engine jointly created by business strategy team and technical experts to improve planning consistency and execution clarity',
-        'features.feature4.title': 'Real Business Immersion Experience',
-        'features.feature4.desc': 'Real projects led by successful entrepreneurs, learning strategic frameworks and decision-making methods, building verifiable business capabilities',
-        'features.feature5.title': 'Complete Development Path',
-        'features.feature5.desc': 'Full-cycle support from middle school academic planning to college transfer, to career exploration',
-        'features.feature6.title': 'Reality-Based Capability Development',
-        'features.feature6.desc': 'Training system designed based on real business environment, improving judgment, adaptability, communication skills and strategic thinking',
-        'services.title': 'Our Services',
-        'services.category1.title': '📚 Academic Planning & Tutoring',
-        'services.category1.item1': 'Middle & High School Course Planning',
-        'services.category1.item2': 'Subject Professional Tutoring',
-        'services.category1.item3': 'Standardized Test Preparation',
-        'services.category1.item4': 'Learning Method Optimization',
-        'services.category2.title': '🎓 College Application Services',
-        'services.category2.item1': 'US Undergraduate Application',
-        'services.category2.item2': 'US Graduate Application',
-        'services.category2.item3': 'Transfer Application Guidance',
-        'services.category2.item4': 'Essay Planning & Writing',
-        'services.category3.title': '🚀 Immersion Business Projects',
-        'services.category3.item1': 'Real Entrepreneurship Project Participation',
-        'services.category3.item2': 'Business Strategy Practice',
-        'services.category3.item3': 'Market Expansion Experience',
-        'services.category3.item4': 'Entrepreneur Mentor Guidance',
-        'services.category4.title': '🤖 AI Learning Engine',
-        'services.category4.item1': 'Intelligent Planning System',
-        'services.category4.item2': 'Personalized Learning Path',
-        'services.category4.item3': 'Progress Tracking & Analysis',
-        'services.category4.item4': '24/7 Online Support',
-        'footer.about.title': 'About ELA',
-        'footer.about.desc': 'ELA English is dedicated to providing students with comprehensive educational planning and capability development services to help them succeed in academic and career development.',
-        'footer.contact.title': 'Contact Us',
-        'footer.contact.email': 'Email: info@ela-english.com',
-        'footer.contact.phone': 'Phone: +1 (XXX) XXX-XXXX',
-        'footer.contact.wechat': 'WeChat: ELA_English',
-        'footer.quicklinks.title': 'Quick Links',
-        'footer.quicklinks.about': 'About Us',
-        'footer.quicklinks.services': 'Services',
-        'footer.quicklinks.success': 'Success Stories',
-        'footer.quicklinks.blog': 'Blog',
-        'footer.followus.title': 'Follow Us',
-        'footer.followus.wechat': 'WeChat Official Account',
-        'footer.followus.linkedin': 'LinkedIn',
-        'footer.followus.instagram': 'Instagram',
+        'services.tag': 'Our Services',
+        'services.title': 'Comprehensive Educational Solutions',
+        'services.subtitle': 'We provide specialized programs designed to meet diverse learning needs, from immersive study programs to personalized academic consulting.',
+        'services.card1.title': 'Business Leader Mentoring Team',
+        'services.card1.desc': 'Mentors with practical experience in entrepreneurship, business operations, market expansion and strategic management, providing students with business perspectives beyond traditional education.',
+        'services.card2.title': 'Real Business Immersion Experience',
+        'services.card2.desc': 'Real projects led by successful entrepreneurs, learning strategic frameworks and decision-making methods, building verifiable business capabilities.',
+        'services.card3.title': 'Academic Planning & Application',
+        'services.card3.desc': 'Full-cycle support from middle school academic planning to college transfer, to career exploration, with deep understanding of the US education system.',
+        'services.card4.title': 'AI-Driven Intelligent Planning',
+        'services.card4.desc': 'AI planning engine jointly created by business strategy team and technical experts to improve planning consistency and execution clarity.',
+        'services.card5.title': 'Language Excellence',
+        'services.card5.desc': 'Develop authentic English proficiency through interactive sessions, practical communication skills, and real-world application in supportive learning environments.',
+        'services.card6.title': 'Test Preparation',
+        'services.card6.desc': 'Achieve your target scores with comprehensive preparation programs for TOEFL, IELTS, SAT and other standardized tests, led by certified instructors.',
+        'services.link': 'Learn More →',
+        'stats.years': '15+',
+        'stats.years.label': 'Years of Excellence',
+        'stats.students': '5,000+',
+        'stats.students.label': 'Students Served',
+        'stats.success': '95%',
+        'stats.success.label': 'Success Rate',
+        'stats.partners': '20+',
+        'stats.partners.label': 'Partner Institutions',
+        'immersion.tag': 'Immersion Programs',
+        'immersion.title': 'Real Business Project Experience',
+        'immersion.subtitle': 'Participate in real business projects guided by successful entrepreneurs and obtain verifiable capability certification.',
+        'immersion.card1.title': 'Entrepreneurship Project Participation',
+        'immersion.card1.desc': 'Learn in real entrepreneurship environment, participate in core activities like product development, market research, and business planning.',
+        'immersion.card2.title': 'Business Strategy Practice',
+        'immersion.card2.desc': 'Learn key business skills such as corporate strategy formulation, competitive analysis, and resource allocation.',
+        'immersion.card3.title': 'Market Expansion Experience',
+        'immersion.card3.desc': 'Actually participate in market promotion, customer development, sales strategies and other market expansion activities.',
+        'footer.about': 'Empowering students worldwide to achieve excellence through transformative educational experiences and expert guidance.',
         'footer.copyright': '© 2024 ELA English. All rights reserved.',
+        'footer.programs.title': 'Programs',
+        'footer.programs.item1': 'Immersion Programs',
+        'footer.programs.item2': 'Academic Consulting',
+        'footer.programs.item3': 'Test Preparation',
+        'footer.programs.item4': 'Summer Programs',
+        'footer.resources.title': 'Resources',
+        'footer.resources.item1': 'Educational Insights',
+        'footer.resources.item2': 'Success Stories',
+        'footer.resources.item3': 'Partner Schools',
+        'footer.resources.item4': 'FAQ',
+        'footer.company.title': 'Company',
+        'footer.company.item1': 'About Us',
+        'footer.company.item2': 'Our Team',
+        'footer.company.item3': 'Contact Us',
+        'footer.company.item4': 'Careers',
+        'footer.legal': 'Privacy Policy | Terms of Service',
+        'footer.social.linkedin': 'LinkedIn',
+        'footer.social.wechat': 'WeChat',
+        'footer.social.instagram': 'Instagram',
         'chatbot.title': 'ELA AI Assistant',
         'chatbot.status': '24/7 Online Service',
-        'chatbot.welcome': '👋 Hello! I\'m ELA AI Assistant, happy to help you!',
-        'chatbot.intro': 'I can help you with:',
-        'chatbot.help1': '✓ Learn about our services',
-        'chatbot.help2': '✓ Book one-on-one consultation',
-        'chatbot.help3': '✓ Download project brochures',
-        'chatbot.help4': '✓ Answer FAQs',
-        'chatbot.quick1': '📚 College Application Services',
-        'chatbot.quick2': '🚀 Immersion Program Details',
-        'chatbot.quick3': '📅 Book Free Consultation',
+        'chatbot.welcome': '👋 Hello! I\'m ELA AI Assistant, happy to help you!<br/><br/>I can help you with:<br/>✓ Learn about our services<br/>✓ Book one-on-one consultation<br/>✓ Download project brochures<br/>✓ Answer FAQs',
+        'chatbot.typing': 'Typing...',
+        'chatbot.quick1': '📚 College Application',
+        'chatbot.quick2': '🚀 Immersion Programs',
+        'chatbot.quick3': '📅 Book Consultation',
         'chatbot.quick4': '❓ FAQs',
         'chatbot.placeholder': 'Type your question...',
-        'chatbot.send': 'Send',
-        'chatbot.typing': 'Typing...'
+        'chatbot.send': 'Send'
       }
     };
 
-    // 当前语言
+    // Current language
     let currentLang = 'zh';
 
-    // 切换语言
+    // Toggle language
     function toggleLanguage() {
       currentLang = currentLang === 'zh' ? 'en' : 'zh';
       document.getElementById('langText').textContent = currentLang === 'zh' ? 'EN' : '中文';
@@ -1190,17 +1588,27 @@
       updateContent();
     }
 
-    // 更新页面内容
+    // Update page content
     function updateContent() {
+      // Update regular text
       const elements = document.querySelectorAll('[data-i18n]');
       elements.forEach(element => {
         const key = element.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          element.textContent = translations[currentLang][key];
+        }
+      });
+
+      // Update HTML content
+      const htmlElements = document.querySelectorAll('[data-i18n-html]');
+      htmlElements.forEach(element => {
+        const key = element.getAttribute('data-i18n-html');
         if (translations[currentLang][key]) {
           element.innerHTML = translations[currentLang][key];
         }
       });
 
-      // 更新输入框占位符
+      // Update placeholders
       const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
       placeholderElements.forEach(element => {
         const key = element.getAttribute('data-i18n-placeholder');
@@ -1210,7 +1618,31 @@
       });
     }
 
-    // 聊天机器人功能
+    // Navigation scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Chatbot functions
     function toggleChat() {
       const chat = document.getElementById('assistantChat');
       chat.classList.toggle('show');
@@ -1224,10 +1656,8 @@
         addUserMessage(message);
         input.value = '';
 
-        // 显示输入指示器
         showTypingIndicator();
 
-        // 模拟AI响应
         setTimeout(() => {
           hideTypingIndicator();
           addBotMessage(getBotResponse(message));
@@ -1308,7 +1738,6 @@
       if (isQuickAction) {
         return responses[currentLang][input] || responses[currentLang]['default'];
       } else {
-        // 简单的关键词匹配
         const lowerInput = input.toLowerCase();
         if (lowerInput.includes('申请') || lowerInput.includes('application') || lowerInput.includes('college')) {
           return responses[currentLang]['application'];
@@ -1330,7 +1759,7 @@
       }
     }
 
-    // 页面加载完成后初始化
+    // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
       updateContent();
     });
