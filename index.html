@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELA English - 帮助学生找到方向、建立真实能力、理解世界</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .website-container {
+      width: 100%;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    /* 导航栏 */
+    .navbar {
+      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #2C5F8D;
+      font-size: 0.9rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .language-switch {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .language-switch:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    .cta-button {
+      background: #D35400;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(211,84,0,0.3);
+      white-space: nowrap;
+    }
+
+    .cta-button:hover {
+      background: #E66100;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(211,84,0,0.4);
+    }
+
+    /* Hero区域 */
+    .hero-section {
+      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+      line-height: 1.8;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .tag {
+      background: rgba(255,255,255,0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .hero-cta {
+      margin-top: 2rem;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+
+    .hero-cta button {
+      background: #D35400;
+      color: white;
+      padding: 1rem 3rem;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 25px rgba(211,84,0,0.4);
+    }
+
+    .hero-cta button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(211,84,0,0.5);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 差异化优势板块 */
+    .highlight-section {
+      background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);
+      padding: 3rem 2rem;
+    }
+
+    .highlight-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .highlight-title {
+      font-size: 2rem;
+      color: #D35400;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    .highlight-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .highlight-item {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(211,84,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .highlight-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(211,84,0,0.2);
+    }
+
+    .highlight-item h4 {
+      color: #D35400;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-item p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    /* 特色板块 */
+    .features-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #2C5F8D;
+      margin-bottom: 3rem;
+      font-weight: bold;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #D35400 0%, #2C5F8D 100%);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+      color: #2C5F8D;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    .feature-description {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* 服务项目板块 */
+    .services-section {
+      background: linear-gradient(135deg, #E8F4F8 0%, #D6E9F0 100%);
+      padding: 4rem 2rem;
+    }
+
+    .services-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .service-category {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .service-category:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .service-category h3 {
+      color: #2C5F8D;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .service-list {
+      list-style: none;
+      color: #666;
+      line-height: 2;
+    }
+
+    .service-list li:before {
+      content: "✓ ";
+      color: #D35400;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+
+    /* 页脚 */
+    .footer {
+      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+      color: white;
+      padding: 3rem 2rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .footer-section p, .footer-section a {
+      color: rgba(255,255,255,0.9);
+      line-height: 1.8;
+      text-decoration: none;
+    }
+
+    .footer-section a:hover {
+      color: #D35400;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* 智能助手 */
+    .ai-assistant-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+    }
+
+    .assistant-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3A7CA5 0%, #2C5F8D 100%);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 25px rgba(44,95,141,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .assistant-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(44,95,141,0.5);
+    }
+
+    .assistant-button::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid #D35400;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+    }
+
+    .assistant-chat {
+      position: absolute;
+      bottom: 100px;
+      right: 0;
+      width: 400px;
+      max-width: calc(100vw - 60px);
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+      transform-origin: bottom right;
+      animation: slideIn 0.3s ease;
+      display: none;
+    }
+
+    .assistant-chat.show {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+      color: white;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chat-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .chat-info p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .chat-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: all 0.3s ease;
+    }
+
+    .chat-close:hover {
+      transform: rotate(90deg);
+      opacity: 0.7;
+    }
+
+    .chat-messages {
+      padding: 1.5rem;
+      max-height: 400px;
+      overflow-y: auto;
+      background: #f8f9fa;
+    }
+
+    .chat-message {
+      background: white;
+      padding: 1rem;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+      animation: messageSlide 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .chat-message.user {
+      background: linear-gradient(135deg, #3A7CA5 0%, #2C5F8D 100%);
+      color: white;
+      margin-left: 2rem;
+    }
+
+    .chat-message.bot {
+      background: white;
+      margin-right: 2rem;
+    }
+
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0 1.5rem;
+    }
+
+    .quick-action-btn {
+      background: white;
+      border: 2px solid #3A7CA5;
+      color: #2C5F8D;
+      padding: 0.7rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .quick-action-btn:hover {
+      background: #3A7CA5;
+      color: white;
+    }
+
+    .chat-input-container {
+      padding: 1rem 1.5rem;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 20px;
+      outline: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .chat-input:focus {
+      border-color: #3A7CA5;
+    }
+
+    .chat-send-btn {
+      background: linear-gradient(135deg, #3A7CA5 0%, #2C5F8D 100%);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .chat-send-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(58,124,165,0.4);
+    }
+
+    .typing-indicator {
+      display: none;
+      padding: 1rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .typing-indicator.show {
+      display: block;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .assistant-chat {
+        width: calc(100vw - 40px);
+        right: -10px;
+      }
+
+      .highlight-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-categories {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 隐藏类 */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="website-container">
+    <!-- 导航栏 -->
+    <nav class="navbar">
+      <div class="nav-content">
+        <div class="logo">
+          <div class="logo-icon">ELA</div>
+          <span data-i18n="brand">ELA English</span>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item" data-i18n="nav.home">首页</li>
+          <li class="nav-item" data-i18n="nav.why">Why ELA</li>
+          <li class="nav-item" data-i18n="nav.services">服务项目</li>
+          <li class="nav-item" data-i18n="nav.immersion">沉浸式项目</li>
+          <li class="nav-item" data-i18n="nav.ai">AI引擎</li>
+          <li class="nav-item" data-i18n="nav.mentors">导师团队</li>
+          <li class="nav-item" data-i18n="nav.parents">致家长</li>
+          <li class="nav-item" data-i18n="nav.contact">联系我们</li>
+        </ul>
+        <div class="nav-actions">
+          <button class="language-switch" onclick="toggleLanguage()">
+            <span id="langText">EN</span>
+          </button>
+          <button class="cta-button" data-i18n="cta.consultation">预约咨询</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title" data-i18n="hero.title">
+          帮助学生找到方向、建立真实能力、理解世界
+        </h1>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
+          由具备创业、企业运营、市场拓展与战略管理经验的专业团队领导<br/>
+          ELA提供学术发展、申请成功和真实商业成长的完整路径
+        </p>
+        <div class="hero-tags">
+          <span class="tag" data-i18n="tags.application">🎓 留学申请</span>
+          <span class="tag" data-i18n="tags.transfer">🔄 转学路径</span>
+          <span class="tag" data-i18n="tags.planning">📊 学术规划</span>
+          <span class="tag" data-i18n="tags.tutoring">📚 专业辅导</span>
+          <span class="tag" data-i18n="tags.immersion">🚀 沉浸式项目</span>
+          <span class="tag" data-i18n="tags.ai">🤖 AI学习引擎</span>
+        </div>
+        <div class="hero-cta">
+          <button data-i18n="hero.cta">立即开始您的成长之旅</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心差异化优势 -->
+    <section class="highlight-section">
+      <div class="highlight-content">
+        <h2 class="highlight-title" data-i18n="highlight.title">
+          🏆 与传统留学机构不同，ELA的核心团队由成功企业家和商业领袖组成
+        </h2>
+        <p class="highlight-subtitle" data-i18n="highlight.subtitle">
+          我们的团队成员拥有创业成功经验、上市公司运营背景、市场拓展实战和战略规划管理能力
+        </p>
+        <div class="highlight-grid">
+          <div class="highlight-item">
+            <h4 data-i18n="highlight.item1.title">💡 企业家思维</h4>
+            <p data-i18n="highlight.item1.desc">理解商业本质和战略决策</p>
+          </div>
+          <div class="highlight-item">
+            <h4 data-i18n="highlight.item2.title">🎯 真实商业环境</h4>
+            <p data-i18n="highlight.item2.desc">参与实际项目运营</p>
+          </div>
+          <div class="highlight-item">
+            <h4 data-i18n="highlight.item3.title">📈 市场机会把握</h4>
+            <p data-i18n="highlight.item3.desc">培养商业敏感度和执行力</p>
+          </div>
+          <div class="highlight-item">
+            <h4 data-i18n="highlight.item4.title">🗺️ 战略规划能力</h4>
+            <p data-i18n="highlight.item4.desc">掌握长期目标设定方法</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心特色 -->
+    <section class="features-section">
+      <h2 class="section-title" data-i18n="features.title">ELA核心优势</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏢</div>
+          <h3 class="feature-title" data-i18n="features.feature1.title">商业领袖背景的导师团队</h3>
+          <p class="feature-description" data-i18n="features.feature1.desc">
+            具备创业、企业运营、市场拓展和战略管理实战经验的导师，为学生提供超越传统教育的商业视角和实践指导
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <h3 class="feature-title" data-i18n="features.feature2.title">熟悉美国教育体系</h3>
+          <p class="feature-description" data-i18n="features.feature2.desc">
+            深度了解美国教育体系、长期规划方法和学生发展规律的专业团队
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3 class="feature-title" data-i18n="features.feature3.title">AI驱动的智能规划系统</h3>
+          <p class="feature-description" data-i18n="features.feature3.desc">
+            由商业战略团队和技术专家共同打造的AI规划引擎，提升规划一致性和执行清晰度
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3 class="feature-title" data-i18n="features.feature4.title">真实商业沉浸式体验</h3>
+          <p class="feature-description" data-i18n="features.feature4.desc">
+            由成功企业家领导的真实项目，学习战略框架和决策方法，建立可验证的商业能力
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title" data-i18n="features.feature5.title">完整发展路径</h3>
+          <p class="feature-description" data-i18n="features.feature5.desc">
+            从初中学术规划到大学转学，再到职业探索的全周期支持
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💪</div>
+          <h3 class="feature-title" data-i18n="features.feature6.title">贴合现实的能力培养</h3>
+          <p class="feature-description" data-i18n="features.feature6.desc">
+            基于真实商业环境设计的培养体系，提升判断力、适应力、沟通能力和战略思维
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 服务项目 -->
+    <section class="services-section">
+      <div class="services-content">
+        <h2 class="section-title" data-i18n="services.title">服务项目</h2>
+        <div class="service-categories">
+          <div class="service-category">
+            <h3 data-i18n="services.category1.title">📚 学术规划与辅导</h3>
+            <ul class="service-list">
+              <li data-i18n="services.category1.item1">初高中课程规划</li>
+              <li data-i18n="services.category1.item2">学科专业辅导</li>
+              <li data-i18n="services.category1.item3">标准化考试准备</li>
+              <li data-i18n="services.category1.item4">学习方法优化</li>
+            </ul>
+          </div>
+
+          <div class="service-category">
+            <h3 data-i18n="services.category2.title">🎓 留学申请服务</h3>
+            <ul class="service-list">
+              <li data-i18n="services.category2.item1">美国本科申请</li>
+              <li data-i18n="services.category2.item2">美国研究生申请</li>
+              <li data-i18n="services.category2.item3">转学申请指导</li>
+              <li data-i18n="services.category2.item4">文书策划与撰写</li>
+            </ul>
+          </div>
+
+          <div class="service-category">
+            <h3 data-i18n="services.category3.title">🚀 沉浸式商业项目</h3>
+            <ul class="service-list">
+              <li data-i18n="services.category3.item1">真实创业项目参与</li>
+              <li data-i18n="services.category3.item2">商业战略实践</li>
+              <li data-i18n="services.category3.item3">市场拓展体验</li>
+              <li data-i18n="services.category3.item4">企业家导师指导</li>
+            </ul>
+          </div>
+
+          <div class="service-category">
+            <h3 data-i18n="services.category4.title">🤖 AI学习引擎</h3>
+            <ul class="service-list">
+              <li data-i18n="services.category4.item1">智能规划系统</li>
+              <li data-i18n="services.category4.item2">个性化学习路径</li>
+              <li data-i18n="services.category4.item3">进度跟踪分析</li>
+              <li data-i18n="services.category4.item4">24/7在线支持</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 data-i18n="footer.about.title">关于ELA</h3>
+          <p data-i18n="footer.about.desc">
+            ELA English致力于为学生提供全方位的教育规划和能力培养服务，帮助他们在学术和职业发展中取得成功。
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-i18n="footer.contact.title">联系方式</h3>
+          <p data-i18n="footer.contact.email">邮箱: info@ela-english.com</p>
+          <p data-i18n="footer.contact.phone">电话: +1 (XXX) XXX-XXXX</p>
+          <p data-i18n="footer.contact.wechat">微信: ELA_English</p>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-i18n="footer.quicklinks.title">快速链接</h3>
+          <p><a href="#" data-i18n="footer.quicklinks.about">关于我们</a></p>
+          <p><a href="#" data-i18n="footer.quicklinks.services">服务项目</a></p>
+          <p><a href="#" data-i18n="footer.quicklinks.success">成功案例</a></p>
+          <p><a href="#" data-i18n="footer.quicklinks.blog">博客资讯</a></p>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-i18n="footer.followus.title">关注我们</h3>
+          <p data-i18n="footer.followus.wechat">微信公众号</p>
+          <p data-i18n="footer.followus.linkedin">LinkedIn</p>
+          <p data-i18n="footer.followus.instagram">Instagram</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="footer.copyright">&copy; 2024 ELA English. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- 智能助手悬浮按钮 -->
+    <div class="ai-assistant-float">
+      <div class="assistant-chat" id="assistantChat">
+        <div class="chat-header">
+          <div class="chat-header-left">
+            <svg width="50" height="50" viewBox="0 0 120 120">
+              <circle cx="60" cy="45" r="28" fill="#3A7CA5" />
+              <line x1="60" y1="17" x2="60" y2="8" stroke="#D35400" stroke-width="3" stroke-linecap="round" />
+              <circle cx="60" cy="6" r="4" fill="#D35400" />
+              <circle cx="52" cy="42" r="4" fill="white" />
+              <circle cx="68" cy="42" r="4" fill="white" />
+              <circle cx="53" cy="42" r="2" fill="#2C5F8D" />
+              <circle cx="69" cy="42" r="2" fill="#2C5F8D" />
+              <path d="M 48 52 Q 60 58 72 52" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" />
+              <path d="M 40 73 L 80 73 L 85 95 L 35 95 Z" fill="#2C5F8D" />
+              <text x="60" y="88" font-size="14" fill="white" text-anchor="middle" font-weight="bold">AI</text>
+              <rect x="30" y="75" width="8" height="25" rx="4" fill="#3A7CA5" />
+              <rect x="82" y="75" width="8" height="25" rx="4" fill="#3A7CA5" />
+            </svg>
+            <div class="chat-info">
+              <h3 data-i18n="chatbot.title">ELA智能助手</h3>
+              <p data-i18n="chatbot.status">24/7在线为您服务</p>
+            </div>
+          </div>
+          <button class="chat-close" onclick="toggleChat()">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-message bot">
+            <span data-i18n="chatbot.welcome">👋 您好！我是ELA智能助手，很高兴为您服务！</span><br/><br/>
+            <span data-i18n="chatbot.intro">我可以帮您：</span><br/>
+            <span data-i18n="chatbot.help1">✓ 了解我们的服务项目</span><br/>
+            <span data-i18n="chatbot.help2">✓ 预约一对一咨询</span><br/>
+            <span data-i18n="chatbot.help3">✓ 下载项目手册</span><br/>
+            <span data-i18n="chatbot.help4">✓ 解答常见问题</span>
+          </div>
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+          <span data-i18n="chatbot.typing">正在输入...</span>
+        </div>
+        <div class="quick-actions">
+          <button class="quick-action-btn" onclick="sendQuickMessage('application')" data-i18n="chatbot.quick1">📚 了解留学申请服务</button>
+          <button class="quick-action-btn" onclick="sendQuickMessage('immersion')" data-i18n="chatbot.quick2">🚀 沉浸式项目详情</button>
+          <button class="quick-action-btn" onclick="sendQuickMessage('consultation')" data-i18n="chatbot.quick3">📅 预约免费咨询</button>
+          <button class="quick-action-btn" onclick="sendQuickMessage('faq')" data-i18n="chatbot.quick4">❓ 常见问题</button>
+        </div>
+        <div class="chat-input-container">
+          <input type="text" class="chat-input" id="chatInput" placeholder="输入您的问题..." data-i18n-placeholder="chatbot.placeholder" onkeypress="handleKeyPress(event)">
+          <button class="chat-send-btn" onclick="sendMessage()" data-i18n="chatbot.send">发送</button>
+        </div>
+      </div>
+      <button class="assistant-button" id="assistantBtn" onclick="toggleChat()">
+        <svg width="60" height="60" viewBox="0 0 120 120">
+          <circle cx="60" cy="45" r="28" fill="white" />
+          <line x1="60" y1="17" x2="60" y2="8" stroke="#D35400" stroke-width="3" stroke-linecap="round" />
+          <circle cx="60" cy="6" r="4" fill="#D35400" />
+          <circle cx="52" cy="42" r="4" fill="#E8F4F8" />
+          <circle cx="68" cy="42" r="4" fill="#E8F4F8" />
+          <circle cx="53" cy="42" r="2" fill="#2C5F8D" />
+          <circle cx="69" cy="42" r="2" fill="#2C5F8D" />
+          <path d="M 48 52 Q 60 58 72 52" stroke="#2C5F8D" stroke-width="2" fill="none" stroke-linecap="round" />
+          <path d="M 40 73 L 80 73 L 85 95 L 35 95 Z" fill="white" />
+          <text x="60" y="88" font-size="14" fill="#2C5F8D" text-anchor="middle" font-weight="bold">AI</text>
+          <rect x="30" y="75" width="8" height="25" rx="4" fill="white" opacity="0.8" />
+          <rect x="82" y="75" width="8" height="25" rx="4" fill="white" opacity="0.8" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // 双语翻译数据
+    const translations = {
+      'zh': {
+        'brand': 'ELA English',
+        'nav.home': '首页',
+        'nav.why': 'Why ELA',
+        'nav.services': '服务项目',
+        'nav.immersion': '沉浸式项目',
+        'nav.ai': 'AI引擎',
+        'nav.mentors': '导师团队',
+        'nav.parents': '致家长',
+        'nav.contact': '联系我们',
+        'cta.consultation': '预约咨询',
+        'hero.title': '帮助学生找到方向、建立真实能力、理解世界',
+        'hero.subtitle': '由具备创业、企业运营、市场拓展与战略管理经验的专业团队领导<br/>ELA提供学术发展、申请成功和真实商业成长的完整路径',
+        'hero.cta': '立即开始您的成长之旅',
+        'tags.application': '🎓 留学申请',
+        'tags.transfer': '🔄 转学路径',
+        'tags.planning': '📊 学术规划',
+        'tags.tutoring': '📚 专业辅导',
+        'tags.immersion': '🚀 沉浸式项目',
+        'tags.ai': '🤖 AI学习引擎',
+        'highlight.title': '🏆 与传统留学机构不同，ELA的核心团队由成功企业家和商业领袖组成',
+        'highlight.subtitle': '我们的团队成员拥有创业成功经验、上市公司运营背景、市场拓展实战和战略规划管理能力',
+        'highlight.item1.title': '💡 企业家思维',
+        'highlight.item1.desc': '理解商业本质和战略决策',
+        'highlight.item2.title': '🎯 真实商业环境',
+        'highlight.item2.desc': '参与实际项目运营',
+        'highlight.item3.title': '📈 市场机会把握',
+        'highlight.item3.desc': '培养商业敏感度和执行力',
+        'highlight.item4.title': '🗺️ 战略规划能力',
+        'highlight.item4.desc': '掌握长期目标设定方法',
+        'features.title': 'ELA核心优势',
+        'features.feature1.title': '商业领袖背景的导师团队',
+        'features.feature1.desc': '具备创业、企业运营、市场拓展和战略管理实战经验的导师，为学生提供超越传统教育的商业视角和实践指导',
+        'features.feature2.title': '熟悉美国教育体系',
+        'features.feature2.desc': '深度了解美国教育体系、长期规划方法和学生发展规律的专业团队',
+        'features.feature3.title': 'AI驱动的智能规划系统',
+        'features.feature3.desc': '由商业战略团队和技术专家共同打造的AI规划引擎，提升规划一致性和执行清晰度',
+        'features.feature4.title': '真实商业沉浸式体验',
+        'features.feature4.desc': '由成功企业家领导的真实项目，学习战略框架和决策方法，建立可验证的商业能力',
+        'features.feature5.title': '完整发展路径',
+        'features.feature5.desc': '从初中学术规划到大学转学，再到职业探索的全周期支持',
+        'features.feature6.title': '贴合现实的能力培养',
+        'features.feature6.desc': '基于真实商业环境设计的培养体系，提升判断力、适应力、沟通能力和战略思维',
+        'services.title': '服务项目',
+        'services.category1.title': '📚 学术规划与辅导',
+        'services.category1.item1': '初高中课程规划',
+        'services.category1.item2': '学科专业辅导',
+        'services.category1.item3': '标准化考试准备',
+        'services.category1.item4': '学习方法优化',
+        'services.category2.title': '🎓 留学申请服务',
+        'services.category2.item1': '美国本科申请',
+        'services.category2.item2': '美国研究生申请',
+        'services.category2.item3': '转学申请指导',
+        'services.category2.item4': '文书策划与撰写',
+        'services.category3.title': '🚀 沉浸式商业项目',
+        'services.category3.item1': '真实创业项目参与',
+        'services.category3.item2': '商业战略实践',
+        'services.category3.item3': '市场拓展体验',
+        'services.category3.item4': '企业家导师指导',
+        'services.category4.title': '🤖 AI学习引擎',
+        'services.category4.item1': '智能规划系统',
+        'services.category4.item2': '个性化学习路径',
+        'services.category4.item3': '进度跟踪分析',
+        'services.category4.item4': '24/7在线支持',
+        'footer.about.title': '关于ELA',
+        'footer.about.desc': 'ELA English致力于为学生提供全方位的教育规划和能力培养服务，帮助他们在学术和职业发展中取得成功。',
+        'footer.contact.title': '联系方式',
+        'footer.contact.email': '邮箱: info@ela-english.com',
+        'footer.contact.phone': '电话: +1 (XXX) XXX-XXXX',
+        'footer.contact.wechat': '微信: ELA_English',
+        'footer.quicklinks.title': '快速链接',
+        'footer.quicklinks.about': '关于我们',
+        'footer.quicklinks.services': '服务项目',
+        'footer.quicklinks.success': '成功案例',
+        'footer.quicklinks.blog': '博客资讯',
+        'footer.followus.title': '关注我们',
+        'footer.followus.wechat': '微信公众号',
+        'footer.followus.linkedin': 'LinkedIn',
+        'footer.followus.instagram': 'Instagram',
+        'footer.copyright': '© 2024 ELA English. All rights reserved.',
+        'chatbot.title': 'ELA智能助手',
+        'chatbot.status': '24/7在线为您服务',
+        'chatbot.welcome': '👋 您好！我是ELA智能助手，很高兴为您服务！',
+        'chatbot.intro': '我可以帮您：',
+        'chatbot.help1': '✓ 了解我们的服务项目',
+        'chatbot.help2': '✓ 预约一对一咨询',
+        'chatbot.help3': '✓ 下载项目手册',
+        'chatbot.help4': '✓ 解答常见问题',
+        'chatbot.quick1': '📚 了解留学申请服务',
+        'chatbot.quick2': '🚀 沉浸式项目详情',
+        'chatbot.quick3': '📅 预约免费咨询',
+        'chatbot.quick4': '❓ 常见问题',
+        'chatbot.placeholder': '输入您的问题...',
+        'chatbot.send': '发送',
+        'chatbot.typing': '正在输入...'
+      },
+      'en': {
+        'brand': 'ELA English',
+        'nav.home': 'Home',
+        'nav.why': 'Why ELA',
+        'nav.services': 'Services',
+        'nav.immersion': 'Immersion Programs',
+        'nav.ai': 'AI Engine',
+        'nav.mentors': 'Mentors',
+        'nav.parents': 'For Parents',
+        'nav.contact': 'Contact',
+        'cta.consultation': 'Book Consultation',
+        'hero.title': 'Help Students Find Direction, Build Real Skills, Understand the World',
+        'hero.subtitle': 'Led by a professional team with entrepreneurship, business operations, market expansion and strategic management experience<br/>ELA provides a complete path to academic development, application success and real business growth',
+        'hero.cta': 'Start Your Growth Journey Now',
+        'tags.application': '🎓 College Application',
+        'tags.transfer': '🔄 Transfer Pathway',
+        'tags.planning': '📊 Academic Planning',
+        'tags.tutoring': '📚 Professional Tutoring',
+        'tags.immersion': '🚀 Immersion Programs',
+        'tags.ai': '🤖 AI Learning Engine',
+        'highlight.title': '🏆 Unlike traditional study abroad agencies, ELA\'s core team consists of successful entrepreneurs and business leaders',
+        'highlight.subtitle': 'Our team members have entrepreneurial success experience, listed company operations background, market expansion practice and strategic planning management capabilities',
+        'highlight.item1.title': '💡 Entrepreneurial Mindset',
+        'highlight.item1.desc': 'Understand business essence and strategic decisions',
+        'highlight.item2.title': '🎯 Real Business Environment',
+        'highlight.item2.desc': 'Participate in actual project operations',
+        'highlight.item3.title': '📈 Market Opportunity Grasp',
+        'highlight.item3.desc': 'Develop business acumen and execution',
+        'highlight.item4.title': '🗺️ Strategic Planning Ability',
+        'highlight.item4.desc': 'Master long-term goal setting methods',
+        'features.title': 'ELA Core Advantages',
+        'features.feature1.title': 'Business Leader Mentoring Team',
+        'features.feature1.desc': 'Mentors with practical experience in entrepreneurship, business operations, market expansion and strategic management, providing students with business perspectives and practical guidance beyond traditional education',
+        'features.feature2.title': 'Familiar with US Education System',
+        'features.feature2.desc': 'Professional team with deep understanding of the US education system, long-term planning methods and student development patterns',
+        'features.feature3.title': 'AI-Driven Intelligent Planning System',
+        'features.feature3.desc': 'AI planning engine jointly created by business strategy team and technical experts to improve planning consistency and execution clarity',
+        'features.feature4.title': 'Real Business Immersion Experience',
+        'features.feature4.desc': 'Real projects led by successful entrepreneurs, learning strategic frameworks and decision-making methods, building verifiable business capabilities',
+        'features.feature5.title': 'Complete Development Path',
+        'features.feature5.desc': 'Full-cycle support from middle school academic planning to college transfer, to career exploration',
+        'features.feature6.title': 'Reality-Based Capability Development',
+        'features.feature6.desc': 'Training system designed based on real business environment, improving judgment, adaptability, communication skills and strategic thinking',
+        'services.title': 'Our Services',
+        'services.category1.title': '📚 Academic Planning & Tutoring',
+        'services.category1.item1': 'Middle & High School Course Planning',
+        'services.category1.item2': 'Subject Professional Tutoring',
+        'services.category1.item3': 'Standardized Test Preparation',
+        'services.category1.item4': 'Learning Method Optimization',
+        'services.category2.title': '🎓 College Application Services',
+        'services.category2.item1': 'US Undergraduate Application',
+        'services.category2.item2': 'US Graduate Application',
+        'services.category2.item3': 'Transfer Application Guidance',
+        'services.category2.item4': 'Essay Planning & Writing',
+        'services.category3.title': '🚀 Immersion Business Projects',
+        'services.category3.item1': 'Real Entrepreneurship Project Participation',
+        'services.category3.item2': 'Business Strategy Practice',
+        'services.category3.item3': 'Market Expansion Experience',
+        'services.category3.item4': 'Entrepreneur Mentor Guidance',
+        'services.category4.title': '🤖 AI Learning Engine',
+        'services.category4.item1': 'Intelligent Planning System',
+        'services.category4.item2': 'Personalized Learning Path',
+        'services.category4.item3': 'Progress Tracking & Analysis',
+        'services.category4.item4': '24/7 Online Support',
+        'footer.about.title': 'About ELA',
+        'footer.about.desc': 'ELA English is dedicated to providing students with comprehensive educational planning and capability development services to help them succeed in academic and career development.',
+        'footer.contact.title': 'Contact Us',
+        'footer.contact.email': 'Email: info@ela-english.com',
+        'footer.contact.phone': 'Phone: +1 (XXX) XXX-XXXX',
+        'footer.contact.wechat': 'WeChat: ELA_English',
+        'footer.quicklinks.title': 'Quick Links',
+        'footer.quicklinks.about': 'About Us',
+        'footer.quicklinks.services': 'Services',
+        'footer.quicklinks.success': 'Success Stories',
+        'footer.quicklinks.blog': 'Blog',
+        'footer.followus.title': 'Follow Us',
+        'footer.followus.wechat': 'WeChat Official Account',
+        'footer.followus.linkedin': 'LinkedIn',
+        'footer.followus.instagram': 'Instagram',
+        'footer.copyright': '© 2024 ELA English. All rights reserved.',
+        'chatbot.title': 'ELA AI Assistant',
+        'chatbot.status': '24/7 Online Service',
+        'chatbot.welcome': '👋 Hello! I\'m ELA AI Assistant, happy to help you!',
+        'chatbot.intro': 'I can help you with:',
+        'chatbot.help1': '✓ Learn about our services',
+        'chatbot.help2': '✓ Book one-on-one consultation',
+        'chatbot.help3': '✓ Download project brochures',
+        'chatbot.help4': '✓ Answer FAQs',
+        'chatbot.quick1': '📚 College Application Services',
+        'chatbot.quick2': '🚀 Immersion Program Details',
+        'chatbot.quick3': '📅 Book Free Consultation',
+        'chatbot.quick4': '❓ FAQs',
+        'chatbot.placeholder': 'Type your question...',
+        'chatbot.send': 'Send',
+        'chatbot.typing': 'Typing...'
+      }
+    };
+
+    // 当前语言
+    let currentLang = 'zh';
+
+    // 切换语言
+    function toggleLanguage() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      document.getElementById('langText').textContent = currentLang === 'zh' ? 'EN' : '中文';
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+      updateContent();
+    }
+
+    // 更新页面内容
+    function updateContent() {
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          element.innerHTML = translations[currentLang][key];
+        }
+      });
+
+      // 更新输入框占位符
+      const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+      placeholderElements.forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        if (translations[currentLang][key]) {
+          element.placeholder = translations[currentLang][key];
+        }
+      });
+    }
+
+    // 聊天机器人功能
+    function toggleChat() {
+      const chat = document.getElementById('assistantChat');
+      chat.classList.toggle('show');
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+
+      if (message) {
+        addUserMessage(message);
+        input.value = '';
+
+        // 显示输入指示器
+        showTypingIndicator();
+
+        // 模拟AI响应
+        setTimeout(() => {
+          hideTypingIndicator();
+          addBotMessage(getBotResponse(message));
+        }, 1500);
+      }
+    }
+
+    function sendQuickMessage(type) {
+      const messages = {
+        'zh': {
+          'application': '我想了解留学申请服务',
+          'immersion': '请介绍一下沉浸式项目',
+          'consultation': '我想预约免费咨询',
+          'faq': '有哪些常见问题？'
+        },
+        'en': {
+          'application': 'I want to learn about college application services',
+          'immersion': 'Please introduce the immersion programs',
+          'consultation': 'I want to book a free consultation',
+          'faq': 'What are the FAQs?'
+        }
+      };
+
+      const message = messages[currentLang][type];
+      addUserMessage(message);
+
+      showTypingIndicator();
+      setTimeout(() => {
+        hideTypingIndicator();
+        addBotMessage(getBotResponse(type, true));
+      }, 1500);
+    }
+
+    function addUserMessage(message) {
+      const chatMessages = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'chat-message user';
+      messageDiv.textContent = message;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addBotMessage(message) {
+      const chatMessages = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'chat-message bot';
+      messageDiv.innerHTML = message;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      document.getElementById('typingIndicator').classList.add('show');
+    }
+
+    function hideTypingIndicator() {
+      document.getElementById('typingIndicator').classList.remove('show');
+    }
+
+    function getBotResponse(input, isQuickAction = false) {
+      const responses = {
+        'zh': {
+          'application': '感谢您对我们留学申请服务的关注！🎓<br/><br/>我们提供：<br/>✓ 美国本科申请全程指导<br/>✓ 美国研究生申请支持<br/>✓ 转学申请专业规划<br/>✓ 文书策划与精心撰写<br/><br/>我们的团队由经验丰富的顾问组成，已成功帮助数百名学生进入理想院校。<br/><br/>您想了解具体哪个方面呢？',
+          'immersion': '很高兴您对沉浸式项目感兴趣！🚀<br/><br/>我们的沉浸式商业项目独具特色：<br/>✓ 由成功企业家亲自指导<br/>✓ 参与真实的创业项目<br/>✓ 学习商业战略和决策方法<br/>✓ 获得可验证的商业能力证明<br/><br/>这些项目不仅能提升您的综合能力，还能为大学申请增添独特优势。<br/><br/>需要具体的项目案例吗？',
+          'consultation': '非常感谢您的关注！📅<br/><br/>预约免费咨询很简单：<br/>1️⃣ 填写您的联系方式<br/>2️⃣ 选择方便的时间段<br/>3️⃣ 我们的专业顾问会与您联系<br/><br/>在咨询中，我们会：<br/>✓ 了解您的背景和目标<br/>✓ 分析您的优势和机会<br/>✓ 制定初步规划建议<br/><br/>请问您方便留下联系方式吗？',
+          'faq': '以下是一些常见问题：❓<br/><br/>1. <strong>服务对象</strong>：我们服务初中至大学各个阶段的学生<br/><br/>2. <strong>服务周期</strong>：根据学生情况定制，从几个月到数年不等<br/><br/>3. <strong>成功率</strong>：我们的学生90%以上都进入了理想院校<br/><br/>4. <strong>费用</strong>：根据服务内容定制，首次咨询免费<br/><br/>5. <strong>特色</strong>：商业领袖导师团队+AI智能系统+真实项目体验<br/><br/>还有其他问题吗？',
+          'default': '感谢您的咨询！😊<br/><br/>我理解您想了解更多信息。我们的服务涵盖：<br/>📚 学术规划与辅导<br/>🎓 留学申请服务<br/>🚀 沉浸式商业项目<br/>🤖 AI学习引擎<br/><br/>您可以选择上方的快捷按钮了解具体服务，或者直接告诉我您最关心的问题！'
+        },
+        'en': {
+          'application': 'Thank you for your interest in our college application services! 🎓<br/><br/>We offer:<br/>✓ Full guidance for US undergraduate applications<br/>✓ US graduate application support<br/>✓ Professional planning for transfer applications<br/>✓ Essay planning and careful writing<br/><br/>Our team consists of experienced consultants who have successfully helped hundreds of students get into their dream schools.<br/><br/>Which aspect would you like to know more about?',
+          'immersion': 'Glad you\'re interested in our immersion programs! 🚀<br/><br/>Our immersion business programs are unique:<br/>✓ Personally guided by successful entrepreneurs<br/>✓ Participate in real entrepreneurship projects<br/>✓ Learn business strategy and decision-making methods<br/>✓ Obtain verifiable business capability certification<br/><br/>These programs not only enhance your overall capabilities but also add unique advantages to your college applications.<br/><br/>Would you like specific project examples?',
+          'consultation': 'Thank you very much for your interest! 📅<br/><br/>Booking a free consultation is simple:<br/>1️⃣ Fill in your contact information<br/>2️⃣ Choose a convenient time slot<br/>3️⃣ Our professional consultant will contact you<br/><br/>During the consultation, we will:<br/>✓ Understand your background and goals<br/>✓ Analyze your strengths and opportunities<br/>✓ Develop preliminary planning recommendations<br/><br/>May I have your contact information?',
+          'faq': 'Here are some frequently asked questions: ❓<br/><br/>1. <strong>Target Audience</strong>: We serve students from middle school to college<br/><br/>2. <strong>Service Duration</strong>: Customized according to student situation, from months to years<br/><br/>3. <strong>Success Rate</strong>: Over 90% of our students get into their dream schools<br/><br/>4. <strong>Fees</strong>: Customized according to service content, first consultation is free<br/><br/>5. <strong>Features</strong>: Business leader mentor team + AI intelligent system + real project experience<br/><br/>Any other questions?',
+          'default': 'Thank you for your inquiry! 😊<br/><br/>I understand you want to know more. Our services include:<br/>📚 Academic Planning & Tutoring<br/>🎓 College Application Services<br/>🚀 Immersion Business Projects<br/>🤖 AI Learning Engine<br/><br/>You can choose the quick buttons above to learn about specific services, or tell me directly what you\'re most concerned about!'
+        }
+      };
+
+      if (isQuickAction) {
+        return responses[currentLang][input] || responses[currentLang]['default'];
+      } else {
+        // 简单的关键词匹配
+        const lowerInput = input.toLowerCase();
+        if (lowerInput.includes('申请') || lowerInput.includes('application') || lowerInput.includes('college')) {
+          return responses[currentLang]['application'];
+        } else if (lowerInput.includes('沉浸') || lowerInput.includes('immersion') || lowerInput.includes('project')) {
+          return responses[currentLang]['immersion'];
+        } else if (lowerInput.includes('咨询') || lowerInput.includes('预约') || lowerInput.includes('consultation') || lowerInput.includes('book')) {
+          return responses[currentLang]['consultation'];
+        } else if (lowerInput.includes('问题') || lowerInput.includes('faq') || lowerInput.includes('question')) {
+          return responses[currentLang]['faq'];
+        } else {
+          return responses[currentLang]['default'];
+        }
+      }
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      updateContent();
+    });
+  </script>
+</body>
+</html>
