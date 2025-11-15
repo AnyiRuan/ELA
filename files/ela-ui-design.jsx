@@ -1,0 +1,702 @@
+import React, { useState } from 'react';
+
+const ELAWebsiteUI = () => {
+  const [activeSection, setActiveSection] = useState('home');
+  const [showAssistant, setShowAssistant] = useState(false);
+
+  // 智能小助手SVG形象
+  const AIAssistant = () => (
+    <svg width="120" height="120" viewBox="0 0 120 120" className="assistant-avatar">
+      {/* 头部 - 圆形 */}
+      <circle cx="60" cy="45" r="28" fill="#3A7CA5" />
+      
+      {/* 天线 */}
+      <line x1="60" y1="17" x2="60" y2="8" stroke="#D35400" strokeWidth="3" strokeLinecap="round" />
+      <circle cx="60" cy="6" r="4" fill="#D35400" />
+      
+      {/* 眼睛 */}
+      <circle cx="52" cy="42" r="4" fill="white" />
+      <circle cx="68" cy="42" r="4" fill="white" />
+      <circle cx="53" cy="42" r="2" fill="#2C5F8D" />
+      <circle cx="69" cy="42" r="2" fill="#2C5F8D" />
+      
+      {/* 微笑 */}
+      <path d="M 48 52 Q 60 58 72 52" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" />
+      
+      {/* 身体 - 梯形 */}
+      <path d="M 40 73 L 80 73 L 85 95 L 35 95 Z" fill="#2C5F8D" />
+      
+      {/* AI标识 */}
+      <text x="60" y="88" fontSize="14" fill="white" textAnchor="middle" fontWeight="bold">AI</text>
+      
+      {/* 手臂 */}
+      <rect x="30" y="75" width="8" height="25" rx="4" fill="#3A7CA5" />
+      <rect x="82" y="75" width="8" height="25" rx="4" fill="#3A7CA5" />
+      
+      {/* 发光效果 */}
+      <circle cx="60" cy="45" r="32" fill="none" stroke="#D35400" strokeWidth="1" opacity="0.3">
+        <animate attributeName="r" values="32;36;32" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite" />
+      </circle>
+    </svg>
+  );
+
+  const sections = [
+    { id: 'home', name: '首页', icon: '🏠' },
+    { id: 'why-ela', name: 'Why ELA', icon: '⭐' },
+    { id: 'programs', name: '服务项目', icon: '📚' },
+    { id: 'immersion', name: '沉浸式项目', icon: '🚀' },
+    { id: 'ai-engine', name: 'AI引擎', icon: '🤖' },
+    { id: 'mentors', name: '导师团队', icon: '👥' },
+    { id: 'parents', name: '致家长', icon: '👨‍👩‍👧' },
+    { id: 'contact', name: '联系我们', icon: '📞' }
+  ];
+
+  return (
+    <div className="website-container">
+      <style>{`
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          color: #333;
+          line-height: 1.6;
+        }
+
+        .website-container {
+          width: 100%;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        /* 导航栏 */
+        .navbar {
+          background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+          padding: 1rem 2rem;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+
+        .nav-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: white;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .logo-icon {
+          width: 40px;
+          height: 40px;
+          background: white;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          color: #2C5F8D;
+        }
+
+        .nav-menu {
+          display: flex;
+          gap: 2rem;
+          list-style: none;
+        }
+
+        .nav-item {
+          color: white;
+          cursor: pointer;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+          font-weight: 500;
+        }
+
+        .nav-item:hover {
+          background: rgba(255,255,255,0.2);
+          transform: translateY(-2px);
+        }
+
+        .nav-item.active {
+          background: rgba(255,255,255,0.3);
+        }
+
+        .cta-button {
+          background: #D35400;
+          color: white;
+          padding: 0.7rem 1.5rem;
+          border-radius: 25px;
+          border: none;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(211,84,0,0.3);
+        }
+
+        .cta-button:hover {
+          background: #E66100;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(211,84,0,0.4);
+        }
+
+        /* Hero区域 */
+        .hero-section {
+          background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+          color: white;
+          padding: 4rem 2rem;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .hero-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+          opacity: 0.5;
+        }
+
+        .hero-content {
+          max-width: 1000px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        }
+
+        .hero-title {
+          font-size: 3rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+          font-size: 1.3rem;
+          margin-bottom: 2rem;
+          opacity: 0.95;
+          line-height: 1.8;
+          animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          justify-content: center;
+          margin: 2rem 0;
+          animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .tag {
+          background: rgba(255,255,255,0.2);
+          padding: 0.5rem 1.2rem;
+          border-radius: 20px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .hero-cta {
+          margin-top: 2rem;
+          animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-cta button {
+          background: #D35400;
+          color: white;
+          padding: 1rem 3rem;
+          border-radius: 30px;
+          border: none;
+          font-size: 1.2rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 6px 25px rgba(211,84,0,0.4);
+        }
+
+        .hero-cta button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 30px rgba(211,84,0,0.5);
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* 特色板块 */
+        .features-section {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 4rem 2rem;
+        }
+
+        .section-title {
+          text-align: center;
+          font-size: 2.5rem;
+          color: #2C5F8D;
+          margin-bottom: 3rem;
+          font-weight: bold;
+        }
+
+        .features-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+        }
+
+        .feature-card {
+          background: white;
+          padding: 2rem;
+          border-radius: 15px;
+          box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .feature-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 100%;
+          background: linear-gradient(180deg, #D35400 0%, #2C5F8D 100%);
+        }
+
+        .feature-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+
+        .feature-title {
+          font-size: 1.5rem;
+          color: #2C5F8D;
+          margin-bottom: 1rem;
+          font-weight: bold;
+        }
+
+        .feature-description {
+          color: #666;
+          line-height: 1.8;
+        }
+
+        /* 智能助手 */
+        .ai-assistant-float {
+          position: fixed;
+          bottom: 30px;
+          right: 30px;
+          z-index: 1000;
+        }
+
+        .assistant-button {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #3A7CA5 0%, #2C5F8D 100%);
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 5px 25px rgba(44,95,141,0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .assistant-button:hover {
+          transform: scale(1.1);
+          box-shadow: 0 8px 30px rgba(44,95,141,0.5);
+        }
+
+        .assistant-button::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          border: 3px solid #D35400;
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.3);
+            opacity: 0;
+          }
+        }
+
+        .assistant-chat {
+          position: absolute;
+          bottom: 100px;
+          right: 0;
+          width: 350px;
+          background: white;
+          border-radius: 20px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+          overflow: hidden;
+          transform-origin: bottom right;
+          animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .chat-header {
+          background: linear-gradient(135deg, #2C5F8D 0%, #3A7CA5 100%);
+          color: white;
+          padding: 1.5rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .chat-avatar {
+          width: 50px;
+          height: 50px;
+        }
+
+        .chat-info h3 {
+          font-size: 1.1rem;
+          margin-bottom: 0.3rem;
+        }
+
+        .chat-info p {
+          font-size: 0.9rem;
+          opacity: 0.9;
+        }
+
+        .chat-body {
+          padding: 1.5rem;
+          max-height: 300px;
+          overflow-y: auto;
+        }
+
+        .chat-message {
+          background: #f0f4f8;
+          padding: 1rem;
+          border-radius: 15px;
+          margin-bottom: 1rem;
+          animation: messageSlide 0.3s ease;
+        }
+
+        @keyframes messageSlide {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .quick-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-top: 1rem;
+        }
+
+        .quick-action-btn {
+          background: white;
+          border: 2px solid #3A7CA5;
+          color: #2C5F8D;
+          padding: 0.7rem;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-align: left;
+          font-weight: 500;
+        }
+
+        .quick-action-btn:hover {
+          background: #3A7CA5;
+          color: white;
+        }
+
+        /* 差异化优势板块 */
+        .highlight-section {
+          background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);
+          padding: 3rem 2rem;
+          margin: 3rem 0;
+        }
+
+        .highlight-content {
+          max-width: 1000px;
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .highlight-title {
+          font-size: 2rem;
+          color: #D35400;
+          margin-bottom: 2rem;
+          font-weight: bold;
+        }
+
+        .highlight-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 2rem;
+          margin-top: 2rem;
+        }
+
+        .highlight-item {
+          background: white;
+          padding: 1.5rem;
+          border-radius: 12px;
+          box-shadow: 0 3px 15px rgba(211,84,0,0.1);
+        }
+
+        .highlight-item h4 {
+          color: #D35400;
+          font-size: 1.2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .highlight-item p {
+          color: #666;
+          font-size: 0.95rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+          .nav-menu {
+            display: none;
+          }
+
+          .hero-title {
+            font-size: 2rem;
+          }
+
+          .hero-subtitle {
+            font-size: 1.1rem;
+          }
+
+          .features-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .assistant-chat {
+            width: calc(100vw - 40px);
+            right: 20px;
+          }
+        }
+      `}</style>
+
+      {/* 导航栏 */}
+      <nav className="navbar">
+        <div className="nav-content">
+          <div className="logo">
+            <div className="logo-icon">ELA</div>
+            <span>ELA English</span>
+          </div>
+          <ul className="nav-menu">
+            {sections.map(section => (
+              <li 
+                key={section.id}
+                className={`nav-item ${activeSection === section.id ? 'active' : ''}`}
+                onClick={() => setActiveSection(section.id)}
+              >
+                {section.name}
+              </li>
+            ))}
+          </ul>
+          <button className="cta-button">预约咨询</button>
+        </div>
+      </nav>
+
+      {/* Hero区域 */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">
+            帮助学生找到方向、建立真实能力、理解世界
+          </h1>
+          <p className="hero-subtitle">
+            由具备创业、企业运营、市场拓展与战略管理经验的专业团队领导<br/>
+            ELA提供学术发展、申请成功和真实商业成长的完整路径
+          </p>
+          <div className="hero-tags">
+            <span className="tag">🎓 留学申请</span>
+            <span className="tag">🔄 转学路径</span>
+            <span className="tag">📊 学术规划</span>
+            <span className="tag">📚 专业辅导</span>
+            <span className="tag">🚀 沉浸式项目</span>
+            <span className="tag">🤖 AI学习引擎</span>
+          </div>
+          <div className="hero-cta">
+            <button>立即开始您的成长之旅</button>
+          </div>
+        </div>
+      </section>
+
+      {/* 核心差异化优势 */}
+      <section className="highlight-section">
+        <div className="highlight-content">
+          <h2 className="highlight-title">
+            🏆 与传统留学机构不同，ELA的核心团队由成功企业家和商业领袖组成
+          </h2>
+          <p style={{fontSize: '1.1rem', color: '#666', marginBottom: '2rem'}}>
+            我们的团队成员拥有创业成功经验、上市公司运营背景、市场拓展实战和战略规划管理能力
+          </p>
+          <div className="highlight-grid">
+            <div className="highlight-item">
+              <h4>💡 企业家思维</h4>
+              <p>理解商业本质和战略决策</p>
+            </div>
+            <div className="highlight-item">
+              <h4>🎯 真实商业环境</h4>
+              <p>参与实际项目运营</p>
+            </div>
+            <div className="highlight-item">
+              <h4>📈 市场机会把握</h4>
+              <p>培养商业敏感度和执行力</p>
+            </div>
+            <div className="highlight-item">
+              <h4>🗺️ 战略规划能力</h4>
+              <p>掌握长期目标设定方法</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 核心特色 */}
+      <section className="features-section">
+        <h2 className="section-title">ELA核心优势</h2>
+        <div className="features-grid">
+          <div className="feature-card">
+            <div className="feature-icon">🏢</div>
+            <h3 className="feature-title">商业领袖背景的导师团队</h3>
+            <p className="feature-description">
+              具备创业、企业运营、市场拓展和战略管理实战经验的导师，为学生提供超越传统教育的商业视角和实践指导
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">🎓</div>
+            <h3 className="feature-title">熟悉美国教育体系</h3>
+            <p className="feature-description">
+              深度了解美国教育体系、长期规划方法和学生发展规律的专业团队
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">🤖</div>
+            <h3 className="feature-title">AI驱动的智能规划系统</h3>
+            <p className="feature-description">
+              由商业战略团队和技术专家共同打造的AI规划引擎，提升规划一致性和执行清晰度
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">🚀</div>
+            <h3 className="feature-title">真实商业沉浸式体验</h3>
+            <p className="feature-description">
+              由成功企业家领导的真实项目，学习战略框架和决策方法，建立可验证的商业能力
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">📊</div>
+            <h3 className="feature-title">完整发展路径</h3>
+            <p className="feature-description">
+              从初中学术规划到大学转学，再到职业探索的全周期支持
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">💪</div>
+            <h3 className="feature-title">贴合现实的能力培养</h3>
+            <p className="feature-description">
+              基于真实商业环境设计的培养体系，提升判断力、适应力、沟通能力和战略思维
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 智能助手悬浮按钮 */}
+      <div className="ai-assistant-float">
+        {showAssistant && (
+          <div className="assistant-chat">
+            <div className="chat-header">
+              <div className="chat-avatar">
+                <AIAssistant />
+              </div>
+              <div className="chat-info">
+                <h3>ELA智能助手</h3>
+                <p>24/7在线为您服务</p>
+              </div>
+            </div>
+            <div className="chat-body">
+              <div className="chat-message">
+                👋 您好！我是ELA智能助手，很高兴为您服务！<br/><br/>
+                我可以帮您：<br/>
+                ✓ 了解我们的服务项目<br/>
+                ✓ 预约一对一咨询<br/>
+                ✓ 下载项目手册<br/>
+                ✓ 解答常见问题
+              </div>
+              <div className="quick-actions">
+                <button className="quick-action-btn">📚 了解留学申请服务</button>
+                <button className="quick-action-btn">🚀 沉浸式项目详情</button>
+                <button className="quick-action-btn">📅 预约免费咨询</button>
+                <button className="quick-action-btn">❓ 常见问题</button>
+              </div>
+            </div>
+          </div>
+        )}
+        <button 
+          className="assistant-button"
+          onClick={() => setShowAssistant(!showAssistant)}
+        >
+          <AIAssistant />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default ELAWebsiteUI;
