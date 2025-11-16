@@ -1,0 +1,4 @@
+# Don't ignore anything - deploy all static files
+!details/
+!details/*.html
+!details/*.css
