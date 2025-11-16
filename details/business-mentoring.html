@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商业领袖导师团队 | ELA English</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 600;
+      color: #003d6a;
+      text-decoration: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #333;
+      font-size: 15px;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: #003d6a;
+    }
+
+    .language-switch {
+      background: rgba(0, 61, 106, 0.1);
+      color: #003d6a;
+      padding: 8px 18px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 61, 106, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .language-switch:hover {
+      background: #003d6a;
+      color: white;
+    }
+
+    /* Hero Section */
+    .page-hero {
+      margin-top: 80px;
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
+      color: white;
+      padding: 100px 40px;
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .page-hero .subtitle {
+      font-size: 20px;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Content Section */
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-intro {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 60px;
+    }
+
+    .section-intro h2 {
+      font-size: 36px;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .section-intro p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin: 60px 0;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: #003d6a;
+      box-shadow: 0 10px 40px rgba(0,61,106,0.1);
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 24px;
+      color: #1a1a1a;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .feature-card ul {
+      margin-top: 15px;
+      padding-left: 20px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .feature-card li {
+      margin-bottom: 8px;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);
+      padding: 60px 40px;
+      border-radius: 12px;
+      margin: 60px 0;
+      border-left: 5px solid #D35400;
+    }
+
+    .highlight-box h3 {
+      font-size: 28px;
+      color: #D35400;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .highlight-box p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .highlight-box ul {
+      padding-left: 25px;
+      color: #666;
+      font-size: 17px;
+      line-height: 2;
+    }
+
+    .highlight-box li {
+      margin-bottom: 10px;
+    }
+
+    /* Mentor Profiles */
+    .mentor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 60px 0;
+    }
+
+    .mentor-card {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .mentor-card:hover {
+      background: white;
+      box-shadow: 0 8px 30px rgba(0,61,106,0.15);
+      transform: translateY(-5px);
+    }
+
+    .mentor-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: white;
+    }
+
+    .mentor-card h4 {
+      font-size: 22px;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .mentor-card .title {
+      font-size: 15px;
+      color: #003d6a;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .mentor-card .bio {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: #003d6a;
+      color: white;
+      padding: 80px 40px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .cta-section h2 {
+      font-size: 36px;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      background: white;
+      color: #003d6a;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #999;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .page-hero h1 {
+        font-size: 32px;
+      }
+
+      .feature-grid,
+      .mentor-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo" data-i18n="brand">ELA English</a>
+      <ul class="nav-menu">
+        <li><a href="../index.html#why-ela" data-i18n="nav.why">Why ELA</a></li>
+        <li><a href="../index.html#services" data-i18n="nav.services">服务项目</a></li>
+        <li><a href="../index.html#immersion" data-i18n="nav.immersion">沉浸式项目</a></li>
+        <li>
+          <button class="language-switch" onclick="toggleLanguage()">
+            <span id="langText">EN</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="page-hero">
+    <h1 data-i18n="hero.title">商业领袖导师团队</h1>
+    <p class="subtitle" data-i18n="hero.subtitle">由成功企业家和商业高管组成的导师团队，为学生提供超越传统教育的商业视角和实践指导</p>
+  </section>
+
+  <!-- Main Content -->
+  <section class="content-section">
+    <div class="section-intro">
+      <h2 data-i18n="intro.title">为什么选择我们的导师团队？</h2>
+      <p data-i18n="intro.text">ELA的核心优势在于我们的导师团队。与传统留学机构不同，我们的导师都是在商业领域取得实际成就的企业家和高管，他们不仅了解教育体系，更深刻理解商业世界的运作规律。</p>
+    </div>
+
+    <!-- Highlight Section -->
+    <div class="highlight-box">
+      <h3 data-i18n="highlight.title">🏆 导师团队背景</h3>
+      <p data-i18n="highlight.intro">我们的导师团队成员拥有：</p>
+      <ul>
+        <li data-i18n="highlight.item1"><strong>创业成功经验</strong> - 从0到1创建并成功运营多个企业</li>
+        <li data-i18n="highlight.item2"><strong>上市公司运营背景</strong> - 在知名上市公司担任高管职位</li>
+        <li data-i18n="highlight.item3"><strong>市场拓展实战</strong> - 领导过多个市场从零到成熟的全过程</li>
+        <li data-i18n="highlight.item4"><strong>战略规划管理能力</strong> - 制定并执行过企业级战略规划</li>
+        <li data-i18n="highlight.item5"><strong>国际化视野</strong> - 在中美两国市场有深度实践经验</li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3 data-i18n="feature1.title">企业家思维培养</h3>
+        <p data-i18n="feature1.text">我们的导师将商业思维融入教育指导，帮助学生：</p>
+        <ul>
+          <li data-i18n="feature1.point1">理解商业本质和价值创造</li>
+          <li data-i18n="feature1.point2">培养战略思考和决策能力</li>
+          <li data-i18n="feature1.point3">学会识别和把握机会</li>
+          <li data-i18n="feature1.point4">建立目标导向的执行力</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3 data-i18n="feature2.title">一对一个性化指导</h3>
+        <p data-i18n="feature2.text">每位学生都将获得：</p>
+        <ul>
+          <li data-i18n="feature2.point1">专属导师匹配（根据兴趣和目标）</li>
+          <li data-i18n="feature2.point2">定期一对一深度交流</li>
+          <li data-i18n="feature2.point3">个性化成长路径规划</li>
+          <li data-i18n="feature2.point4">职业发展咨询和建议</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3 data-i18n="feature3.title">实战项目参与</h3>
+        <p data-i18n="feature3.text">在导师指导下参与真实商业项目：</p>
+        <ul>
+          <li data-i18n="feature3.point1">参与导师正在运营的真实项目</li>
+          <li data-i18n="feature3.point2">学习商业决策的完整过程</li>
+          <li data-i18n="feature3.point3">获得可验证的项目成果</li>
+          <li data-i18n="feature3.point4">建立专业人脉和推荐关系</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3 data-i18n="feature4.title">商业技能提升</h3>
+        <p data-i18n="feature4.text">系统性培养商业核心能力：</p>
+        <ul>
+          <li data-i18n="feature4.point1">市场分析和竞争策略</li>
+          <li data-i18n="feature4.point2">产品思维和用户洞察</li>
+          <li data-i18n="feature4.point3">团队管理和沟通协作</li>
+          <li data-i18n="feature4.point4">财务基础和商业模式</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌟</div>
+        <h3 data-i18n="feature5.title">申请优势建立</h3>
+        <p data-i18n="feature5.text">导师指导将直接提升申请竞争力：</p>
+        <ul>
+          <li data-i18n="feature5.point1">独特的商业项目经历</li>
+          <li data-i18n="feature5.point2">企业家导师的推荐信</li>
+          <li data-i18n="feature5.point3">可量化的成就和影响力</li>
+          <li data-i18n="feature5.point4">深刻的商业理解和见解</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3 data-i18n="feature6.title">长期发展支持</h3>
+        <p data-i18n="feature6.text">导师关系将持续至大学及职业发展：</p>
+        <ul>
+          <li data-i18n="feature6.point1">大学期间持续指导</li>
+          <li data-i18n="feature6.point2">职业规划和就业建议</li>
+          <li data-i18n="feature6.point3">创业资源和投资人网络</li>
+          <li data-i18n="feature6.point4">终身职业发展伙伴</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Mentor Profiles -->
+    <div class="section-intro" style="margin-top: 100px;">
+      <h2 data-i18n="mentors.title">优秀导师代表</h2>
+      <p data-i18n="mentors.subtitle">我们的导师团队来自不同行业和领域，为学生提供多元化的商业视角</p>
+    </div>
+
+    <div class="mentor-grid">
+      <div class="mentor-card">
+        <div class="mentor-avatar">👨‍💼</div>
+        <h4 data-i18n="mentor1.name">David Chen</h4>
+        <p class="title" data-i18n="mentor1.title">连续创业者 | 前科技公司VP</p>
+        <p class="bio" data-i18n="mentor1.bio">创建并成功退出两家科技初创公司，曾在硅谷上市公司担任产品副总裁。专长：产品策略、市场拓展、创业指导。</p>
+      </div>
+
+      <div class="mentor-card">
+        <div class="mentor-avatar">👩‍💼</div>
+        <h4 data-i18n="mentor2.name">Sarah Wang</h4>
+        <p class="title" data-i18n="mentor2.title">战略顾问 | 前投资银行董事</p>
+        <p class="bio" data-i18n="mentor2.bio">15年华尔街投资银行经验，主导过多个跨国并购项目。现从事战略咨询。专长：商业战略、财务分析、行业研究。</p>
+      </div>
+
+      <div class="mentor-card">
+        <div class="mentor-avatar">👨‍🏫</div>
+        <h4 data-i18n="mentor3.name">Michael Liu</h4>
+        <p class="title" data-i18n="mentor3.title">教育科技创始人 | 哈佛MBA</p>
+        <p class="bio" data-i18n="mentor3.bio">创建教育科技公司服务数万学生，哈佛商学院MBA。深谙美国教育体系和商学院申请。专长：教育创新、申请策略、商业模式。</p>
+      </div>
+
+      <div class="mentor-card">
+        <div class="mentor-avatar">👩‍🔬</div>
+        <h4 data-i18n="mentor4.name">Emily Zhang</h4>
+        <p class="title" data-i18n="mentor4.title">市场营销专家 | 前品牌总监</p>
+        <p class="bio" data-i18n="mentor4.bio">在知名消费品公司领导品牌营销团队，成功打造多个知名品牌。专长：品牌战略、数字营销、用户增长。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2 data-i18n="cta.title">准备好与商业领袖导师一起成长？</h2>
+    <p data-i18n="cta.text">预约免费咨询，了解我们的导师如何帮助您建立真实商业能力，在大学申请中脱颖而出。</p>
+    <a href="../index.html#services" class="cta-button" data-i18n="cta.button">预约咨询</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p data-i18n="footer.text">© 2024 ELA English. All rights reserved.</p>
+    <div style="margin-top: 15px;">
+      <a href="../index.html" data-i18n="footer.home">返回首页</a>
+      <a href="../index.html#services" data-i18n="footer.services">服务项目</a>
+      <a href="../index.html#immersion" data-i18n="footer.immersion">沉浸式项目</a>
+    </div>
+  </footer>
+
+  <script>
+    // Bilingual translations
+    const translations = {
+      'zh': {
+        'brand': 'ELA English',
+        'nav.why': 'Why ELA',
+        'nav.services': '服务项目',
+        'nav.immersion': '沉浸式项目',
+        'hero.title': '商业领袖导师团队',
+        'hero.subtitle': '由成功企业家和商业高管组成的导师团队，为学生提供超越传统教育的商业视角和实践指导',
+        'intro.title': '为什么选择我们的导师团队？',
+        'intro.text': 'ELA的核心优势在于我们的导师团队。与传统留学机构不同，我们的导师都是在商业领域取得实际成就的企业家和高管，他们不仅了解教育体系，更深刻理解商业世界的运作规律。',
+        'highlight.title': '🏆 导师团队背景',
+        'highlight.intro': '我们的导师团队成员拥有：',
+        'highlight.item1': '创业成功经验 - 从0到1创建并成功运营多个企业',
+        'highlight.item2': '上市公司运营背景 - 在知名上市公司担任高管职位',
+        'highlight.item3': '市场拓展实战 - 领导过多个市场从零到成熟的全过程',
+        'highlight.item4': '战略规划管理能力 - 制定并执行过企业级战略规划',
+        'highlight.item5': '国际化视野 - 在中美两国市场有深度实践经验',
+        'feature1.title': '企业家思维培养',
+        'feature1.text': '我们的导师将商业思维融入教育指导，帮助学生：',
+        'feature1.point1': '理解商业本质和价值创造',
+        'feature1.point2': '培养战略思考和决策能力',
+        'feature1.point3': '学会识别和把握机会',
+        'feature1.point4': '建立目标导向的执行力',
+        'feature2.title': '一对一个性化指导',
+        'feature2.text': '每位学生都将获得：',
+        'feature2.point1': '专属导师匹配（根据兴趣和目标）',
+        'feature2.point2': '定期一对一深度交流',
+        'feature2.point3': '个性化成长路径规划',
+        'feature2.point4': '职业发展咨询和建议',
+        'feature3.title': '实战项目参与',
+        'feature3.text': '在导师指导下参与真实商业项目：',
+        'feature3.point1': '参与导师正在运营的真实项目',
+        'feature3.point2': '学习商业决策的完整过程',
+        'feature3.point3': '获得可验证的项目成果',
+        'feature3.point4': '建立专业人脉和推荐关系',
+        'feature4.title': '商业技能提升',
+        'feature4.text': '系统性培养商业核心能力：',
+        'feature4.point1': '市场分析和竞争策略',
+        'feature4.point2': '产品思维和用户洞察',
+        'feature4.point3': '团队管理和沟通协作',
+        'feature4.point4': '财务基础和商业模式',
+        'feature5.title': '申请优势建立',
+        'feature5.text': '导师指导将直接提升申请竞争力：',
+        'feature5.point1': '独特的商业项目经历',
+        'feature5.point2': '企业家导师的推荐信',
+        'feature5.point3': '可量化的成就和影响力',
+        'feature5.point4': '深刻的商业理解和见解',
+        'feature6.title': '长期发展支持',
+        'feature6.text': '导师关系将持续至大学及职业发展：',
+        'feature6.point1': '大学期间持续指导',
+        'feature6.point2': '职业规划和就业建议',
+        'feature6.point3': '创业资源和投资人网络',
+        'feature6.point4': '终身职业发展伙伴',
+        'mentors.title': '优秀导师代表',
+        'mentors.subtitle': '我们的导师团队来自不同行业和领域，为学生提供多元化的商业视角',
+        'mentor1.name': 'David Chen',
+        'mentor1.title': '连续创业者 | 前科技公司VP',
+        'mentor1.bio': '创建并成功退出两家科技初创公司，曾在硅谷上市公司担任产品副总裁。专长：产品策略、市场拓展、创业指导。',
+        'mentor2.name': 'Sarah Wang',
+        'mentor2.title': '战略顾问 | 前投资银行董事',
+        'mentor2.bio': '15年华尔街投资银行经验，主导过多个跨国并购项目。现从事战略咨询。专长：商业战略、财务分析、行业研究。',
+        'mentor3.name': 'Michael Liu',
+        'mentor3.title': '教育科技创始人 | 哈佛MBA',
+        'mentor3.bio': '创建教育科技公司服务数万学生，哈佛商学院MBA。深谙美国教育体系和商学院申请。专长：教育创新、申请策略、商业模式。',
+        'mentor4.name': 'Emily Zhang',
+        'mentor4.title': '市场营销专家 | 前品牌总监',
+        'mentor4.bio': '在知名消费品公司领导品牌营销团队，成功打造多个知名品牌。专长：品牌战略、数字营销、用户增长。',
+        'cta.title': '准备好与商业领袖导师一起成长？',
+        'cta.text': '预约免费咨询，了解我们的导师如何帮助您建立真实商业能力，在大学申请中脱颖而出。',
+        'cta.button': '预约咨询',
+        'footer.text': '© 2024 ELA English. All rights reserved.',
+        'footer.home': '返回首页',
+        'footer.services': '服务项目',
+        'footer.immersion': '沉浸式项目'
+      },
+      'en': {
+        'brand': 'ELA English',
+        'nav.why': 'Why ELA',
+        'nav.services': 'Services',
+        'nav.immersion': 'Immersion Programs',
+        'hero.title': 'Business Leader Mentoring Team',
+        'hero.subtitle': 'A mentoring team composed of successful entrepreneurs and business executives, providing students with business perspectives and practical guidance beyond traditional education',
+        'intro.title': 'Why Choose Our Mentoring Team?',
+        'intro.text': 'ELA\'s core advantage lies in our mentoring team. Unlike traditional study abroad agencies, our mentors are entrepreneurs and executives who have achieved real success in the business world. They not only understand the education system but also deeply comprehend how the business world operates.',
+        'highlight.title': '🏆 Mentor Team Background',
+        'highlight.intro': 'Our mentor team members have:',
+        'highlight.item1': 'Entrepreneurial Success Experience - Built and successfully operated multiple businesses from 0 to 1',
+        'highlight.item2': 'Listed Company Operations Background - Served as executives in well-known public companies',
+        'highlight.item3': 'Market Expansion Practice - Led multiple markets from zero to maturity',
+        'highlight.item4': 'Strategic Planning Management Capabilities - Formulated and executed enterprise-level strategic plans',
+        'highlight.item5': 'International Vision - Deep practical experience in both Chinese and American markets',
+        'feature1.title': 'Entrepreneurial Mindset Development',
+        'feature1.text': 'Our mentors integrate business thinking into educational guidance, helping students:',
+        'feature1.point1': 'Understand business essence and value creation',
+        'feature1.point2': 'Develop strategic thinking and decision-making abilities',
+        'feature1.point3': 'Learn to identify and seize opportunities',
+        'feature1.point4': 'Build goal-oriented execution power',
+        'feature2.title': 'One-on-One Personalized Guidance',
+        'feature2.text': 'Each student will receive:',
+        'feature2.point1': 'Dedicated mentor matching (based on interests and goals)',
+        'feature2.point2': 'Regular one-on-one in-depth exchanges',
+        'feature2.point3': 'Personalized growth path planning',
+        'feature2.point4': 'Career development consultation and advice',
+        'feature3.title': 'Practical Project Participation',
+        'feature3.text': 'Participate in real business projects under mentor guidance:',
+        'feature3.point1': 'Engage in real projects that mentors are operating',
+        'feature3.point2': 'Learn the complete process of business decision-making',
+        'feature3.point3': 'Obtain verifiable project results',
+        'feature3.point4': 'Build professional networks and recommendation relationships',
+        'feature4.title': 'Business Skills Enhancement',
+        'feature4.text': 'Systematically cultivate core business capabilities:',
+        'feature4.point1': 'Market analysis and competitive strategy',
+        'feature4.point2': 'Product thinking and user insights',
+        'feature4.point3': 'Team management and communication collaboration',
+        'feature4.point4': 'Financial basics and business models',
+        'feature5.title': 'Application Advantage Building',
+        'feature5.text': 'Mentor guidance will directly enhance application competitiveness:',
+        'feature5.point1': 'Unique business project experience',
+        'feature5.point2': 'Recommendation letters from entrepreneur mentors',
+        'feature5.point3': 'Quantifiable achievements and impact',
+        'feature5.point4': 'Deep business understanding and insights',
+        'feature6.title': 'Long-term Development Support',
+        'feature6.text': 'Mentor relationships will continue through college and career development:',
+        'feature6.point1': 'Continuous guidance during college',
+        'feature6.point2': 'Career planning and employment advice',
+        'feature6.point3': 'Entrepreneurial resources and investor networks',
+        'feature6.point4': 'Lifelong career development partner',
+        'mentors.title': 'Outstanding Mentor Representatives',
+        'mentors.subtitle': 'Our mentor team comes from different industries and fields, providing students with diverse business perspectives',
+        'mentor1.name': 'David Chen',
+        'mentor1.title': 'Serial Entrepreneur | Former Tech Company VP',
+        'mentor1.bio': 'Founded and successfully exited two tech startups, served as VP of Product at a Silicon Valley public company. Expertise: Product strategy, market expansion, entrepreneurship guidance.',
+        'mentor2.name': 'Sarah Wang',
+        'mentor2.title': 'Strategy Consultant | Former Investment Banking MD',
+        'mentor2.bio': '15 years of Wall Street investment banking experience, led multiple cross-border M&A projects. Now engaged in strategic consulting. Expertise: Business strategy, financial analysis, industry research.',
+        'mentor3.name': 'Michael Liu',
+        'mentor3.title': 'EdTech Founder | Harvard MBA',
+        'mentor3.bio': 'Founded education technology company serving tens of thousands of students, Harvard Business School MBA. Deep knowledge of US education system and business school applications. Expertise: Education innovation, application strategy, business models.',
+        'mentor4.name': 'Emily Zhang',
+        'mentor4.title': 'Marketing Expert | Former Brand Director',
+        'mentor4.bio': 'Led brand marketing teams at well-known consumer goods companies, successfully built multiple well-known brands. Expertise: Brand strategy, digital marketing, user growth.',
+        'cta.title': 'Ready to Grow with Business Leader Mentors?',
+        'cta.text': 'Book a free consultation to learn how our mentors can help you build real business capabilities and stand out in college applications.',
+        'cta.button': 'Book Consultation',
+        'footer.text': '© 2024 ELA English. All rights reserved.',
+        'footer.home': 'Back to Home',
+        'footer.services': 'Services',
+        'footer.immersion': 'Immersion Programs'
+      }
+    };
+
+    // Current language
+    let currentLang = 'zh';
+
+    // Toggle language
+    function toggleLanguage() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      document.getElementById('langText').textContent = currentLang === 'zh' ? 'EN' : '中文';
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+      updateContent();
+    }
+
+    // Update page content
+    function updateContent() {
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          element.textContent = translations[currentLang][key];
+        }
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', updateContent);
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学术规划与申请 | ELA English</title>
+  <style>* {   margin: 0;   padding: 0;   box-sizing: border-box; }  body {   font-family: 'Segoe UI', 'Arial', sans-serif;   color: #333;   line-height: 1.6;   background: #fff; }  .navbar {   position: fixed;   top: 0;   width: 100%;   background: rgba(255, 255, 255, 0.98);   backdrop-filter: blur(10px);   box-shadow: 0 2px 10px rgba(0,0,0,0.05);   z-index: 1000; }  .nav-container {   max-width: 1400px;   margin: 0 auto;   padding: 0 40px;   display: flex;   justify-content: space-between;   align-items: center;   height: 80px; }  .logo {   font-size: 28px;   font-weight: 600;   color: #003d6a;   text-decoration: none; }  .nav-menu {   display: flex;   list-style: none;   gap: 40px;   align-items: center; }  .nav-menu a {   text-decoration: none;   color: #333;   font-size: 15px;   transition: color 0.3s ease; }  .nav-menu a:hover {   color: #003d6a; }  .language-switch {   background: rgba(0, 61, 106, 0.1);   color: #003d6a;   padding: 8px 18px;   border-radius: 4px;   border: 1px solid rgba(0, 61, 106, 0.2);   cursor: pointer;   transition: all 0.3s ease;   font-weight: 500;   font-size: 14px; }  .page-hero {   margin-top: 80px;   background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);   color: white;   padding: 100px 40px;   text-align: center; }  .page-hero h1 {   font-size: 48px;   font-weight: 300;   margin-bottom: 20px; }  .page-hero .subtitle {   font-size: 20px;   opacity: 0.9;   max-width: 800px;   margin: 0 auto; }  .content-section {   max-width: 1200px;   margin: 0 auto;   padding: 80px 40px; }  .section-intro {   text-align: center;   max-width: 900px;   margin: 0 auto 60px; }  .section-intro h2 {   font-size: 36px;   color: #1a1a1a;   margin-bottom: 20px; }  .section-intro p {   font-size: 18px;   color: #666; }  .feature-grid {   display: grid;   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));   gap: 30px;   margin: 60px 0; }  .feature-card {   background: white;   padding: 40px;   border: 1px solid #e8e8e8;   border-radius: 8px;   transition: all 0.3s ease; }  .feature-card:hover {   border-color: #003d6a;   box-shadow: 0 10px 40px rgba(0,61,106,0.1);   transform: translateY(-5px); }  .feature-icon {   font-size: 48px;   margin-bottom: 20px; }  .feature-card h3 {   font-size: 24px;   color: #1a1a1a;   margin-bottom: 15px; }  .feature-card p {   color: #666;   line-height: 1.8;   margin-bottom: 15px; }  .feature-card ul {   padding-left: 20px;   color: #666; }  .feature-card li {   margin-bottom: 8px; }  .highlight-box {   background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);   padding: 60px 40px;   border-radius: 12px;   margin: 60px 0;   border-left: 5px solid #D35400; }  .highlight-box h3 {   font-size: 28px;   color: #D35400;   margin-bottom: 20px; }  .highlight-box ul {   padding-left: 25px;   color: #666;   font-size: 17px;   line-height: 2; }  .cta-section {   background: #003d6a;   color: white;   padding: 80px 40px;   text-align: center;   margin-top: 80px; }  .cta-section h2 {   font-size: 36px;   font-weight: 300;   margin-bottom: 20px; }  .cta-section p {   font-size: 18px;   opacity: 0.9;   margin-bottom: 40px; }  .cta-button {   background: white;   color: #003d6a;   padding: 16px 40px;   border: none;   border-radius: 4px;   font-size: 16px;   font-weight: 500;   cursor: pointer;   transition: all 0.3s ease;   text-decoration: none;   display: inline-block; }  .cta-button:hover {   transform: translateY(-2px);   box-shadow: 0 6px 20px rgba(255,255,255,0.3); }  .footer {   background: #1a1a1a;   color: #999;   padding: 40px;   text-align: center; }  .footer a {   color: #999;   text-decoration: none;   margin: 0 15px;   transition: color 0.3s ease; }  .footer a:hover {   color: white; }  @media (max-width: 768px) {   .nav-menu {     display: none;   }    .page-hero h1 {     font-size: 32px;   }    .feature-grid {     grid-template-columns: 1fr;   } } </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">ELA English</a>
+      <ul class="nav-menu">
+        <li><a href="../index.html#services">服务项目</a></li>
+        <li><button class="language-switch" onclick="toggleLanguage()"><span id="langText">EN</span></button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <h1>学术规划与申请</h1>
+    <p class="subtitle">从初中到研究生的全周期申请规划，深度理解美国教育体系</p>
+  </section>
+
+  <section class="content-section">
+    <div class="section-intro">
+      <h2>专业的学术规划服务</h2>
+      <p>我们提供从初中到研究生阶段的全方位学术规划和申请支持，帮助学生在每个阶段做出最优选择，实现学术目标。</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>初高中规划</h3>
+        <p>从选课策略到课外活动规划，建立系统化的学术成长路径。</p>
+        <ul>
+          <li>个性化选课建议</li>
+          <li>课外活动规划</li>
+          <li>暑期项目选择</li>
+          <li>学术竞赛指导</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>本科申请</h3>
+        <p>全流程申请指导，从选校到文书，帮助你进入理想大学。</p>
+        <ul>
+          <li>科学选校定位</li>
+          <li>文书头脑风暴</li>
+          <li>活动列表优化</li>
+          <li>面试模拟辅导</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>转学申请</h3>
+        <p>帮助在读大学生实现转学目标，进入更适合的学校。</p>
+        <ul>
+          <li>转学时机把握</li>
+          <li>学分转换规划</li>
+          <li>转学文书策略</li>
+          <li>推荐信准备</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <h3>研究生申请</h3>
+        <p>专业的研究生申请指导，包括硕士和博士项目。</p>
+        <ul>
+          <li>项目选择评估</li>
+          <li>研究经历规划</li>
+          <li>SOP/PS撰写</li>
+          <li>套磁指导</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <h3>💎 我们的申请优势</h3>
+      <ul>
+        <li><strong>深度理解美国教育</strong> - 团队成员均有美国顶尖大学学习和工作经验</li>
+        <li><strong>个性化方案</strong> - 根据每个学生的背景和目标定制申请策略</li>
+        <li><strong>全程陪伴</strong> - 从规划到录取，提供持续的支持和指导</li>
+        <li><strong>成功记录</strong> - 95%以上的学生进入理想院校</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>开启你的名校申请之路</h2>
+    <p>预约免费咨询，让我们帮助你制定个性化的申请策略。</p>
+    <a href="../index.html#services" class="cta-button">预约咨询</a>
+  </section>
+
+  <footer class="footer">
+    <p>© 2024 ELA English. All rights reserved.</p>
+    <a href="../index.html">返回首页</a>
+  </footer>
+</body>
+</html>

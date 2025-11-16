@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>真实商业沉浸式体验 | ELA English</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 600;
+      color: #003d6a;
+      text-decoration: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: #333;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: #003d6a;
+    }
+
+    .language-switch {
+      background: rgba(0, 61, 106, 0.1);
+      color: #003d6a;
+      padding: 8px 18px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 61, 106, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .language-switch:hover {
+      background: #003d6a;
+      color: white;
+    }
+
+    .page-hero {
+      margin-top: 80px;
+      background: linear-gradient(135deg, #003d6a 0%, #00568f 100%);
+      color: white;
+      padding: 100px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><circle cx="200" cy="100" r="3" fill="%23ffffff" opacity="0.2"/><circle cx="800" cy="200" r="2" fill="%23ffffff" opacity="0.15"/></svg>') repeat;
+      opacity: 0.3;
+    }
+
+    .page-hero h1 {
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero .subtitle {
+      font-size: 20px;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-intro {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 60px;
+    }
+
+    .section-intro h2 {
+      font-size: 36px;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .section-intro p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);
+      padding: 60px 40px;
+      border-radius: 12px;
+      margin: 60px 0;
+      border-left: 5px solid #D35400;
+    }
+
+    .highlight-box h3 {
+      font-size: 28px;
+      color: #D35400;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .highlight-box p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .highlight-box ul {
+      padding-left: 25px;
+      color: #666;
+      font-size: 17px;
+      line-height: 2;
+    }
+
+    .program-section {
+      margin: 100px 0;
+      padding: 60px 0;
+      border-top: 2px solid #f0f0f0;
+    }
+
+    .program-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .program-icon {
+      font-size: 64px;
+      min-width: 80px;
+    }
+
+    .program-header h2 {
+      font-size: 36px;
+      color: #003d6a;
+      font-weight: 400;
+    }
+
+    .program-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .info-card {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      background: white;
+      box-shadow: 0 8px 30px rgba(0,61,106,0.15);
+      transform: translateY(-5px);
+    }
+
+    .info-card h4 {
+      font-size: 20px;
+      color: #1a1a1a;
+      margin-bottom: 15px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-card p {
+      color: #666;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .info-card ul {
+      margin-top: 15px;
+      padding-left: 20px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .info-card li {
+      margin-bottom: 8px;
+    }
+
+    .project-examples {
+      background: linear-gradient(135deg, #f0f6fa 0%, #e3f2fd 100%);
+      padding: 50px 40px;
+      border-radius: 12px;
+      margin: 40px 0;
+    }
+
+    .project-examples h4 {
+      font-size: 24px;
+      color: #003d6a;
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    .example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .example-card {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      border-left: 4px solid #003d6a;
+    }
+
+    .example-card h5 {
+      font-size: 18px;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .example-card p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .benefits-section {
+      background: white;
+      padding: 50px;
+      border: 2px solid #003d6a;
+      border-radius: 12px;
+      margin: 60px 0;
+    }
+
+    .benefits-section h3 {
+      font-size: 28px;
+      color: #003d6a;
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .benefit-item {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .benefit-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .benefit-item h4 {
+      font-size: 18px;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .benefit-item p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .cta-section {
+      background: #003d6a;
+      color: white;
+      padding: 80px 40px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .cta-section h2 {
+      font-size: 36px;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      background: white;
+      color: #003d6a;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+    }
+
+    .footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #999;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .page-hero h1 {
+        font-size: 32px;
+      }
+
+      .program-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .program-content,
+      .example-grid,
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo" data-i18n="brand">ELA English</a>
+      <ul class="nav-menu">
+        <li><a href="../index.html#why-ela" data-i18n="nav.why">Why ELA</a></li>
+        <li><a href="../index.html#services" data-i18n="nav.services">服务项目</a></li>
+        <li><a href="../index.html#immersion" data-i18n="nav.immersion">沉浸式项目</a></li>
+        <li>
+          <button class="language-switch" onclick="toggleLanguage()">
+            <span id="langText">EN</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <h1 data-i18n="hero.title">真实商业沉浸式体验</h1>
+    <p class="subtitle" data-i18n="hero.subtitle">参与由成功企业家指导的真实商业项目，在实战中建立可验证的商业能力</p>
+  </section>
+
+  <section class="content-section">
+    <div class="section-intro">
+      <h2 data-i18n="intro.title">什么是商业沉浸式体验？</h2>
+      <p data-i18n="intro.text">不同于传统的实习或模拟项目，ELA的沉浸式体验让学生真正参与到企业家正在运营的商业项目中。学生将承担实际责任，做出真实决策，产生可衡量的商业影响。这种深度参与不仅培养商业能力，更让学生建立起对商业世界的真实理解。</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3 data-i18n="highlight.title">🚀 为什么选择我们的沉浸式项目？</h3>
+      <ul>
+        <li data-i18n="highlight.item1"><strong>真实项目，真实影响</strong> - 参与的是正在运营的商业项目，不是模拟或案例研究</li>
+        <li data-i18n="highlight.item2"><strong>企业家亲自指导</strong> - 由成功创业者和商业领袖全程带领</li>
+        <li data-i18n="highlight.item3"><strong>可验证的成果</strong> - 产生实际商业成果，获得项目推荐信和作品集</li>
+        <li data-i18n="highlight.item4"><strong>系统化学习</strong> - 从战略规划到执行落地的完整商业流程</li>
+        <li data-i18n="highlight.item5"><strong>申请竞争力</strong> - 在大学申请中展现独特的商业经验和能力</li>
+      </ul>
+    </div>
+
+    <!-- Program 1: Entrepreneurship -->
+    <div class="program-section">
+      <div class="program-header">
+        <div class="program-icon">🌟</div>
+        <div>
+          <h2 data-i18n="program1.title">创业项目参与</h2>
+          <p data-i18n="program1.subtitle" style="font-size: 18px; color: #666; margin-top: 10px;">在真实创业环境中学习，从想法到产品的完整创业旅程</p>
+        </div>
+      </div>
+
+      <div class="program-content">
+        <div class="info-card">
+          <h4 data-i18n="program1.card1.title">🎯 参与内容</h4>
+          <ul>
+            <li data-i18n="program1.card1.point1">产品概念设计和验证</li>
+            <li data-i18n="program1.card1.point2">市场调研和用户访谈</li>
+            <li data-i18n="program1.card1.point3">商业计划书撰写</li>
+            <li data-i18n="program1.card1.point4">原型开发和测试</li>
+            <li data-i18n="program1.card1.point5">融资演示和投资人沟通</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4 data-i18n="program1.card2.title">📚 学习目标</h4>
+          <ul>
+            <li data-i18n="program1.card2.point1">理解从0到1的创业过程</li>
+            <li data-i18n="program1.card2.point2">掌握精益创业方法论</li>
+            <li data-i18n="program1.card2.point3">学会快速验证商业假设</li>
+            <li data-i18n="program1.card2.point4">培养创新思维和执行力</li>
+            <li data-i18n="program1.card2.point5">建立创业者mindset</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4 data-i18n="program1.card3.title">✨ 项目成果</h4>
+          <ul>
+            <li data-i18n="program1.card3.point1">完整的商业计划书</li>
+            <li data-i18n="program1.card3.point2">产品原型或MVP</li>
+            <li data-i18n="program1.card3.point3">市场调研报告</li>
+            <li data-i18n="program1.card3.point4">创始人推荐信</li>
+            <li data-i18n="program1.card3.point5">创业经历证明</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-examples">
+        <h4 data-i18n="program1.examples.title">项目案例</h4>
+        <div class="example-grid">
+          <div class="example-card">
+            <h5 data-i18n="program1.ex1.title">教育科技产品</h5>
+            <p data-i18n="program1.ex1.desc">开发AI驱动的学习平台，参与产品设计、用户测试和市场推广</p>
+          </div>
+          <div class="example-card">
+            <h5 data-i18n="program1.ex2.title">社交媒体应用</h5>
+            <p data-i18n="program1.ex2.desc">为Z世代设计社交产品，从用户调研到产品上线全程参与</p>
+          </div>
+          <div class="example-card">
+            <h5 data-i18n="program1.ex3.title">可持续消费品</h5>
+            <p data-i18n="program1.ex3.desc">创建环保产品品牌，参与供应链、品牌设计和电商运营</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Program 2: Business Strategy -->
+    <div class="program-section">
+      <div class="program-header">
+        <div class="program-icon">📊</div>
+        <div>
+          <h2 data-i18n="program2.title">商业战略实践</h2>
+          <p data-i18n="program2.subtitle" style="font-size: 18px; color: #666; margin-top: 10px;">学习企业战略制定，掌握商业分析和决策方法</p>
+        </div>
+      </div>
+
+      <div class="program-content">
+        <div class="info-card">
+          <h4 data-i18n="program2.card1.title">🎯 核心内容</h4>
+          <ul>
+            <li data-i18n="program2.card1.point1">竞争分析和市场定位</li>
+            <li data-i18n="program2.card1.point2">商业模式设计和优化</li>
+            <li data-i18n="program2.card1.point3">增长战略规划</li>
+            <li data-i18n="program2.card1.point4">资源配置和优先级管理</li>
+            <li data-i18n="program2.card1.point5">战略执行和绩效评估</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4 data-i18n="program2.card2.title">📚 分析工具</h4>
+          <ul>
+            <li data-i18n="program2.card2.point1">SWOT和PEST分析</li>
+            <li data-i18n="program2.card2.point2">波特五力模型</li>
+            <li data-i18n="program2.card2.point3">商业模式画布</li>
+            <li data-i18n="program2.card2.point4">价值链分析</li>
+            <li data-i18n="program2.card2.point5">财务建模基础</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4 data-i18n="program2.card3.title">✨ 能力提升</h4>
+          <ul>
+            <li data-i18n="program2.card3.point1">战略思维和系统思考</li>
+            <li data-i18n="program2.card3.point2">数据驱动的决策能力</li>
+            <li data-i18n="program2.card3.point3">商业洞察和判断力</li>
+            <li data-i18n="program2.card3.point4">战略沟通和presentation</li>
+            <li data-i18n="program2.card3.point5">项目管理和执行</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-examples">
+        <h4 data-i18n="program2.examples.title">实战案例</h4>
+        <div class="example-grid">
+          <div class="example-card">
+            <h5 data-i18n="program2.ex1.title">市场扩张战略</h5>
+            <p data-i18n="program2.ex1.desc">为成长期企业制定新市场进入策略，包括目标客户分析和go-to-market计划</p>
+          </div>
+          <div class="example-card">
+            <h5 data-i18n="program2.ex2.title">产品组合优化</h5>
+            <p data-i18n="program2.ex2.desc">分析现有产品线，提出产品策略建议和资源配置方案</p>
+          </div>
+          <div class="example-card">
+            <h5 data-i18n="program2.ex3.title">数字化转型</h5>
+            <p data-i18n="program2.ex3.desc">帮助传统企业制定数字化战略，设计转型路线图</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Program 3: Market Expansion -->
+    <div class="program-section">
+      <div class="program-header">
+        <div class="program-icon">🎯</div>
+        <div>
+          <h2 data-i18n="program3.title">市场拓展体验</h2>
+          <p data-i18n="program3.subtitle" style="font-size: 18px; color: #666; margin-top: 10px;">参与实际市场推广活动，学习客户开发和增长策略</p>
+        </div>
+      </div>
+
+      <div class="program-content">
+        <div class="info-card">
+          <h4 data-i18n="program3.card1.title">🎯 实践活动</h4>
+          <ul>
+            <li data-i18n="program3.card1.point1">目标客户画像和市场细分</li>
+            <li data-i18n="program3.card1.point2">营销渠道策略制定</li>
+            <li data-i18n="program3.card1.point3">客户开发和销售流程</li>
+            <li data-i18n="program3.card1.point4">内容营销和社交媒体运营</li>
+            <li data-i18n="program3.card1.point5">数据分析和增长优化</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4 data-i18n="program3.card2.title">📚 核心技能</h4>
+          <ul>
+            <li data-i18n="program3.card2.point1">市场调研和用户洞察</li>
+            <li data-i18n="program3.card2.point2">营销策略和品牌定位</li>
+            <li data-i18n="program3.card2.point3">销售技巧和客户关系</li>
+            <li data-i18n="program3.card2.point4">数字营销和growth hacking</li>
+            <li data-i18n="program3.card2.point5">绩效分析和ROI计算</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4 data-i18n="program3.card3.title">✨ 实战成果</h4>
+          <ul>
+            <li data-i18n="program3.card3.point1">市场推广方案</li>
+            <li data-i18n="program3.card3.point2">客户开发成果</li>
+            <li data-i18n="program3.card3.point3">营销内容作品集</li>
+            <li data-i18n="program3.card3.point4">增长实验报告</li>
+            <li data-i18n="program3.card3.point5">市场团队推荐信</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-examples">
+        <h4 data-i18n="program3.examples.title">实战项目</h4>
+        <div class="example-grid">
+          <div class="example-card">
+            <h5 data-i18n="program3.ex1.title">B2B客户开发</h5>
+            <p data-i18n="program3.ex1.desc">参与企业级产品的销售流程，从潜在客户开发到成交全程参与</p>
+          </div>
+          <div class="example-card">
+            <h5 data-i18n="program3.ex2.title">社交媒体增长</h5>
+            <p data-i18n="program3.ex2.desc">负责品牌社交媒体运营，策划内容、分析数据、优化增长</p>
+          </div>
+          <div class="example-card">
+            <h5 data-i18n="program3.ex3.title">产品发布活动</h5>
+            <p data-i18n="program3.ex3.desc">策划并执行新产品launch活动，包括PR、线上推广和event运营</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits -->
+    <div class="benefits-section">
+      <h3 data-i18n="benefits.title">参与沉浸式项目的独特优势</h3>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">💼</div>
+          <h4 data-i18n="benefit1.title">真实商业经验</h4>
+          <p data-i18n="benefit1.desc">不是模拟，而是真实影响商业结果的项目经历</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🎓</div>
+          <h4 data-i18n="benefit2.title">申请竞争优势</h4>
+          <p data-i18n="benefit2.desc">独特的商业项目经历让你在申请中脱颖而出</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">👥</div>
+          <h4 data-i18n="benefit3.title">高质量人脉</h4>
+          <p data-i18n="benefit3.desc">与企业家和商业领袖建立长期mentor关系</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📝</div>
+          <h4 data-i18n="benefit4.title">权威推荐信</h4>
+          <p data-i18n="benefit4.desc">获得创业者和高管的深度推荐</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🚀</div>
+          <h4 data-i18n="benefit5.title">能力快速提升</h4>
+          <p data-i18n="benefit5.desc">在实战中培养商业思维和执行力</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🎯</div>
+          <h4 data-i18n="benefit6.title">职业方向明确</h4>
+          <p data-i18n="benefit6.desc">通过实践找到真正的兴趣和职业方向</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 data-i18n="cta.title">准备好开始你的商业实战之旅？</h2>
+    <p data-i18n="cta.text">预约免费咨询，了解如何通过沉浸式商业项目建立真实能力，为大学申请和未来职业发展打下坚实基础。</p>
+    <a href="../index.html#services" class="cta-button" data-i18n="cta.button">预约咨询</a>
+  </section>
+
+  <footer class="footer">
+    <p data-i18n="footer.text">© 2024 ELA English. All rights reserved.</p>
+    <div style="margin-top: 15px;">
+      <a href="../index.html" data-i18n="footer.home">返回首页</a>
+      <a href="../index.html#services" data-i18n="footer.services">服务项目</a>
+      <a href="business-mentoring.html" data-i18n="footer.mentoring">导师团队</a>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      'zh': {
+        'brand': 'ELA English',
+        'nav.why': 'Why ELA',
+        'nav.services': '服务项目',
+        'nav.immersion': '沉浸式项目',
+        'hero.title': '真实商业沉浸式体验',
+        'hero.subtitle': '参与由成功企业家指导的真实商业项目，在实战中建立可验证的商业能力',
+        'intro.title': '什么是商业沉浸式体验？',
+        'intro.text': '不同于传统的实习或模拟项目，ELA的沉浸式体验让学生真正参与到企业家正在运营的商业项目中。学生将承担实际责任，做出真实决策，产生可衡量的商业影响。这种深度参与不仅培养商业能力，更让学生建立起对商业世界的真实理解。',
+        'highlight.title': '🚀 为什么选择我们的沉浸式项目？',
+        'highlight.item1': '真实项目，真实影响 - 参与的是正在运营的商业项目，不是模拟或案例研究',
+        'highlight.item2': '企业家亲自指导 - 由成功创业者和商业领袖全程带领',
+        'highlight.item3': '可验证的成果 - 产生实际商业成果，获得项目推荐信和作品集',
+        'highlight.item4': '系统化学习 - 从战略规划到执行落地的完整商业流程',
+        'highlight.item5': '申请竞争力 - 在大学申请中展现独特的商业经验和能力',
+        'program1.title': '创业项目参与',
+        'program1.subtitle': '在真实创业环境中学习，从想法到产品的完整创业旅程',
+        'program1.card1.title': '🎯 参与内容',
+        'program1.card1.point1': '产品概念设计和验证',
+        'program1.card1.point2': '市场调研和用户访谈',
+        'program1.card1.point3': '商业计划书撰写',
+        'program1.card1.point4': '原型开发和测试',
+        'program1.card1.point5': '融资演示和投资人沟通',
+        'program1.card2.title': '📚 学习目标',
+        'program1.card2.point1': '理解从0到1的创业过程',
+        'program1.card2.point2': '掌握精益创业方法论',
+        'program1.card2.point3': '学会快速验证商业假设',
+        'program1.card2.point4': '培养创新思维和执行力',
+        'program1.card2.point5': '建立创业者mindset',
+        'program1.card3.title': '✨ 项目成果',
+        'program1.card3.point1': '完整的商业计划书',
+        'program1.card3.point2': '产品原型或MVP',
+        'program1.card3.point3': '市场调研报告',
+        'program1.card3.point4': '创始人推荐信',
+        'program1.card3.point5': '创业经历证明',
+        'program1.examples.title': '项目案例',
+        'program1.ex1.title': '教育科技产品',
+        'program1.ex1.desc': '开发AI驱动的学习平台，参与产品设计、用户测试和市场推广',
+        'program1.ex2.title': '社交媒体应用',
+        'program1.ex2.desc': '为Z世代设计社交产品，从用户调研到产品上线全程参与',
+        'program1.ex3.title': '可持续消费品',
+        'program1.ex3.desc': '创建环保产品品牌，参与供应链、品牌设计和电商运营',
+        'program2.title': '商业战略实践',
+        'program2.subtitle': '学习企业战略制定，掌握商业分析和决策方法',
+        'program2.card1.title': '🎯 核心内容',
+        'program2.card1.point1': '竞争分析和市场定位',
+        'program2.card1.point2': '商业模式设计和优化',
+        'program2.card1.point3': '增长战略规划',
+        'program2.card1.point4': '资源配置和优先级管理',
+        'program2.card1.point5': '战略执行和绩效评估',
+        'program2.card2.title': '📚 分析工具',
+        'program2.card2.point1': 'SWOT和PEST分析',
+        'program2.card2.point2': '波特五力模型',
+        'program2.card2.point3': '商业模式画布',
+        'program2.card2.point4': '价值链分析',
+        'program2.card2.point5': '财务建模基础',
+        'program2.card3.title': '✨ 能力提升',
+        'program2.card3.point1': '战略思维和系统思考',
+        'program2.card3.point2': '数据驱动的决策能力',
+        'program2.card3.point3': '商业洞察和判断力',
+        'program2.card3.point4': '战略沟通和presentation',
+        'program2.card3.point5': '项目管理和执行',
+        'program2.examples.title': '实战案例',
+        'program2.ex1.title': '市场扩张战略',
+        'program2.ex1.desc': '为成长期企业制定新市场进入策略，包括目标客户分析和go-to-market计划',
+        'program2.ex2.title': '产品组合优化',
+        'program2.ex2.desc': '分析现有产品线，提出产品策略建议和资源配置方案',
+        'program2.ex3.title': '数字化转型',
+        'program2.ex3.desc': '帮助传统企业制定数字化战略，设计转型路线图',
+        'program3.title': '市场拓展体验',
+        'program3.subtitle': '参与实际市场推广活动，学习客户开发和增长策略',
+        'program3.card1.title': '🎯 实践活动',
+        'program3.card1.point1': '目标客户画像和市场细分',
+        'program3.card1.point2': '营销渠道策略制定',
+        'program3.card1.point3': '客户开发和销售流程',
+        'program3.card1.point4': '内容营销和社交媒体运营',
+        'program3.card1.point5': '数据分析和增长优化',
+        'program3.card2.title': '📚 核心技能',
+        'program3.card2.point1': '市场调研和用户洞察',
+        'program3.card2.point2': '营销策略和品牌定位',
+        'program3.card2.point3': '销售技巧和客户关系',
+        'program3.card2.point4': '数字营销和growth hacking',
+        'program3.card2.point5': '绩效分析和ROI计算',
+        'program3.card3.title': '✨ 实战成果',
+        'program3.card3.point1': '市场推广方案',
+        'program3.card3.point2': '客户开发成果',
+        'program3.card3.point3': '营销内容作品集',
+        'program3.card3.point4': '增长实验报告',
+        'program3.card3.point5': '市场团队推荐信',
+        'program3.examples.title': '实战项目',
+        'program3.ex1.title': 'B2B客户开发',
+        'program3.ex1.desc': '参与企业级产品的销售流程，从潜在客户开发到成交全程参与',
+        'program3.ex2.title': '社交媒体增长',
+        'program3.ex2.desc': '负责品牌社交媒体运营，策划内容、分析数据、优化增长',
+        'program3.ex3.title': '产品发布活动',
+        'program3.ex3.desc': '策划并执行新产品launch活动，包括PR、线上推广和event运营',
+        'benefits.title': '参与沉浸式项目的独特优势',
+        'benefit1.title': '真实商业经验',
+        'benefit1.desc': '不是模拟，而是真实影响商业结果的项目经历',
+        'benefit2.title': '申请竞争优势',
+        'benefit2.desc': '独特的商业项目经历让你在申请中脱颖而出',
+        'benefit3.title': '高质量人脉',
+        'benefit3.desc': '与企业家和商业领袖建立长期mentor关系',
+        'benefit4.title': '权威推荐信',
+        'benefit4.desc': '获得创业者和高管的深度推荐',
+        'benefit5.title': '能力快速提升',
+        'benefit5.desc': '在实战中培养商业思维和执行力',
+        'benefit6.title': '职业方向明确',
+        'benefit6.desc': '通过实践找到真正的兴趣和职业方向',
+        'cta.title': '准备好开始你的商业实战之旅？',
+        'cta.text': '预约免费咨询，了解如何通过沉浸式商业项目建立真实能力，为大学申请和未来职业发展打下坚实基础。',
+        'cta.button': '预约咨询',
+        'footer.text': '© 2024 ELA English. All rights reserved.',
+        'footer.home': '返回首页',
+        'footer.services': '服务项目',
+        'footer.mentoring': '导师团队'
+      },
+      'en': {
+        'brand': 'ELA English',
+        'nav.why': 'Why ELA',
+        'nav.services': 'Services',
+        'nav.immersion': 'Immersion Programs',
+        'hero.title': 'Real Business Immersion Experience',
+        'hero.subtitle': 'Participate in real business projects guided by successful entrepreneurs and build verifiable business capabilities through hands-on practice',
+        'intro.title': 'What is Business Immersion Experience?',
+        'intro.text': 'Unlike traditional internships or simulation projects, ELA\'s immersion experience allows students to truly participate in business projects that entrepreneurs are operating. Students will take on real responsibilities, make real decisions, and generate measurable business impact. This deep involvement not only cultivates business capabilities but also builds students\' real understanding of the business world.',
+        'cta.title': 'Ready to Start Your Business Practice Journey?',
+        'cta.text': 'Book a free consultation to learn how to build real capabilities through immersive business projects and lay a solid foundation for college applications and future career development.',
+        'cta.button': 'Book Consultation',
+        'footer.text': '© 2024 ELA English. All rights reserved.',
+        'footer.home': 'Back to Home',
+        'footer.services': 'Services',
+        'footer.mentoring': 'Mentoring Team'
+      }
+    };
+
+    let currentLang = 'zh';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      document.getElementById('langText').textContent = currentLang === 'zh' ? 'EN' : '中文';
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+      updateContent();
+    }
+
+    function updateContent() {
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          element.textContent = translations[currentLang][key];
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', updateContent);
+  </script>
+</body>
+</html>
