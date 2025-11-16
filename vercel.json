@@ -1,17 +1,21 @@
 {
-  "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
+      "source": "/details/:path*",
+      "destination": "/details/:path*"
     }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/details/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ],
   "env": {
