@@ -1,7 +1,7 @@
 // Vercel Serverless Function for ELA AI Chatbot
 // This file is automatically deployed as /api/chat endpoint
 
-import Anthropic from '@anthropic-ai/sdk';
+const Anthropic = require('@anthropic-ai/sdk').default;
 
 // Rate limiting store (in-memory, resets on cold start)
 const requestCounts = new Map();
@@ -33,7 +33,7 @@ function checkRateLimit(ip) {
   return true;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*'); // 在生产环境中改为您的域名
