@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELA English 管理后台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 登录界面 */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .login-box {
+      background: white;
+      padding: 60px 50px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .login-title {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .login-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    /* 管理界面 */
+    .admin-panel {
+      display: none;
+    }
+
+    .admin-header {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-title {
+      font-size: 28px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .logout-btn {
+      padding: 12px 30px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 20px;
+      background: white;
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      color: #666;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 25px;
+      font-weight: 600;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #667eea;
+    }
+
+    .content-item {
+      margin-bottom: 30px;
+    }
+
+    .content-label {
+      display: block;
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .content-input,
+    .content-textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .content-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .content-input:focus,
+    .content-textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .lang-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .lang-tab {
+      padding: 10px 25px;
+      background: #f5f5f5;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #666;
+    }
+
+    .lang-tab.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .save-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 30px;
+    }
+
+    .save-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .save-btn:active {
+      transform: translateY(0);
+    }
+
+    .success-message,
+    .error-message-admin {
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+    }
+
+    .error-message-admin {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+    }
+
+    .help-text {
+      font-size: 13px;
+      color: #999;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .knowledge-section {
+      margin-bottom: 40px;
+    }
+
+    .back-home {
+      display: inline-block;
+      padding: 10px 20px;
+      background: white;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab-content {
+        padding: 25px;
+      }
+
+      .login-box {
+        padding: 40px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 登录界面 -->
+  <div class="login-container" id="loginContainer">
+    <div class="login-box">
+      <h1 class="login-title">ELA English</h1>
+      <p class="login-subtitle">管理后台登录</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label">管理员密码</label>
+          <input type="password" id="passwordInput" class="form-input" placeholder="请输入管理员密码" required>
+        </div>
+        <button type="submit" class="login-btn">登录</button>
+        <p class="error-message" id="loginError">密码错误，请重试</p>
+      </form>
+      <a href="/" class="back-home" style="margin-top: 20px; display: inline-block;">返回首页</a>
+    </div>
+  </div>
+
+  <!-- 管理界面 -->
+  <div class="admin-panel" id="adminPanel">
+    <div class="container">
+      <div class="admin-header">
+        <div>
+          <h1 class="admin-title">ELA English 管理后台</h1>
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+          <a href="/" class="back-home">返回首页</a>
+          <button class="logout-btn" id="logoutBtn">退出登录</button>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="content">网页内容管理</button>
+        <button class="tab-btn" data-tab="knowledge">聊天机器人知识库</button>
+      </div>
+
+      <!-- 网页内容管理 -->
+      <div class="tab-content active" id="contentTab">
+        <h2 class="section-title">网页内容管理</h2>
+
+        <div class="lang-tabs">
+          <button class="lang-tab active" data-lang="zh">中文</button>
+          <button class="lang-tab" data-lang="en">English</button>
+        </div>
+
+        <div id="zhContent" class="lang-content">
+          <div class="content-item">
+            <label class="content-label">首页标题</label>
+            <input type="text" class="content-input" id="heroTitle_zh" placeholder="输入首页主标题">
+            <p class="help-text">这是首页顶部的主标题，建议控制在30字以内</p>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">首页描述</label>
+            <textarea class="content-textarea" id="heroDesc_zh" placeholder="输入首页描述文字"></textarea>
+            <p class="help-text">首页副标题描述，建议控制在100字以内</p>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">差异化优势标题</label>
+            <input type="text" class="content-input" id="highlightTitle_zh" placeholder="输入差异化优势标题">
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">差异化优势副标题</label>
+            <textarea class="content-textarea" id="highlightSubtitle_zh" placeholder="输入差异化优势副标题"></textarea>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">商业领袖导师团队服务描述</label>
+            <textarea class="content-textarea" id="service1Desc_zh" placeholder="输入服务描述"></textarea>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">真实商业沉浸式体验服务描述</label>
+            <textarea class="content-textarea" id="service2Desc_zh" placeholder="输入服务描述"></textarea>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">学术规划与申请服务描述</label>
+            <textarea class="content-textarea" id="service3Desc_zh" placeholder="输入服务描述"></textarea>
+          </div>
+        </div>
+
+        <div id="enContent" class="lang-content" style="display: none;">
+          <div class="content-item">
+            <label class="content-label">Hero Title</label>
+            <input type="text" class="content-input" id="heroTitle_en" placeholder="Enter hero title">
+            <p class="help-text">Main title on the homepage, recommended within 50 characters</p>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">Hero Description</label>
+            <textarea class="content-textarea" id="heroDesc_en" placeholder="Enter hero description"></textarea>
+            <p class="help-text">Hero subtitle description, recommended within 200 characters</p>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">Highlight Title</label>
+            <input type="text" class="content-input" id="highlightTitle_en" placeholder="Enter highlight title">
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">Highlight Subtitle</label>
+            <textarea class="content-textarea" id="highlightSubtitle_en" placeholder="Enter highlight subtitle"></textarea>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">Business Leader Mentoring Service Description</label>
+            <textarea class="content-textarea" id="service1Desc_en" placeholder="Enter service description"></textarea>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">Real Business Immersion Service Description</label>
+            <textarea class="content-textarea" id="service2Desc_en" placeholder="Enter service description"></textarea>
+          </div>
+
+          <div class="content-item">
+            <label class="content-label">Academic Planning Service Description</label>
+            <textarea class="content-textarea" id="service3Desc_en" placeholder="Enter service description"></textarea>
+          </div>
+        </div>
+
+        <button class="save-btn" id="saveContentBtn">保存内容更改</button>
+        <div class="success-message" id="contentSuccess">✓ 内容已成功保存！</div>
+        <div class="error-message-admin" id="contentError">✗ 保存失败，请重试</div>
+      </div>
+
+      <!-- 聊天机器人知识库 -->
+      <div class="tab-content" id="knowledgeTab">
+        <h2 class="section-title">聊天机器人知识库管理</h2>
+
+        <div class="lang-tabs">
+          <button class="lang-tab active" data-lang="zh-kb">中文知识库</button>
+          <button class="lang-tab" data-lang="en-kb">English Knowledge Base</button>
+        </div>
+
+        <div id="zhKnowledge" class="lang-content">
+          <div class="knowledge-section">
+            <div class="content-item">
+              <label class="content-label">聊天机器人身份介绍</label>
+              <textarea class="content-textarea" id="botIdentity_zh" placeholder="输入机器人身份介绍，例如：你是ELA English的智能客服助手..."></textarea>
+              <p class="help-text">定义聊天机器人的角色和身份，这会影响它的回答风格</p>
+            </div>
+
+            <div class="content-item">
+              <label class="content-label">核心服务介绍</label>
+              <textarea class="content-textarea" id="services_zh" style="min-height: 250px;" placeholder="列出所有服务项目，每行一个服务"></textarea>
+              <p class="help-text">列出所有服务项目，聊天机器人会基于这些内容回答用户问题</p>
+            </div>
+
+            <div class="content-item">
+              <label class="content-label">团队特色</label>
+              <textarea class="content-textarea" id="teamFeatures_zh" placeholder="输入团队特色和优势"></textarea>
+              <p class="help-text">描述团队的独特之处和竞争优势</p>
+            </div>
+
+            <div class="content-item">
+              <label class="content-label">回答风格指导</label>
+              <textarea class="content-textarea" id="responseStyle_zh" placeholder="例如：请用友好、专业的语气回答用户问题..."></textarea>
+              <p class="help-text">指导聊天机器人如何回答问题（语气、风格等）</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="enKnowledge" class="lang-content" style="display: none;">
+          <div class="knowledge-section">
+            <div class="content-item">
+              <label class="content-label">Bot Identity</label>
+              <textarea class="content-textarea" id="botIdentity_en" placeholder="Enter bot identity, e.g., You are ELA English's AI assistant..."></textarea>
+              <p class="help-text">Define the chatbot's role and identity, which will affect its response style</p>
+            </div>
+
+            <div class="content-item">
+              <label class="content-label">Core Services</label>
+              <textarea class="content-textarea" id="services_en" style="min-height: 250px;" placeholder="List all services, one per line"></textarea>
+              <p class="help-text">List all service offerings, the chatbot will answer based on this content</p>
+            </div>
+
+            <div class="content-item">
+              <label class="content-label">Team Features</label>
+              <textarea class="content-textarea" id="teamFeatures_en" placeholder="Enter team features and advantages"></textarea>
+              <p class="help-text">Describe what makes your team unique and competitive advantages</p>
+            </div>
+
+            <div class="content-item">
+              <label class="content-label">Response Style Guidelines</label>
+              <textarea class="content-textarea" id="responseStyle_en" placeholder="E.g., Please respond in a friendly and professional tone..."></textarea>
+              <p class="help-text">Guide how the chatbot should respond (tone, style, etc.)</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="save-btn" id="saveKnowledgeBtn">保存知识库更改</button>
+        <div class="success-message" id="knowledgeSuccess">✓ 知识库已成功保存！</div>
+        <div class="error-message-admin" id="knowledgeError">✗ 保存失败，请重试</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 登录功能
+    const loginForm = document.getElementById('loginForm');
+    const loginContainer = document.getElementById('loginContainer');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginError = document.getElementById('loginError');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // 检查是否已登录
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+      showAdminPanel();
+    }
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = document.getElementById('passwordInput').value;
+
+      try {
+        const response = await fetch('/api/admin-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          sessionStorage.setItem('adminLoggedIn', 'true');
+          sessionStorage.setItem('adminToken', data.token);
+          showAdminPanel();
+          loadContent();
+          loadKnowledge();
+        } else {
+          loginError.style.display = 'block';
+          setTimeout(() => {
+            loginError.style.display = 'none';
+          }, 3000);
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        loginError.textContent = '登录失败，请检查网络连接';
+        loginError.style.display = 'block';
+      }
+    });
+
+    function showAdminPanel() {
+      loginContainer.style.display = 'none';
+      adminPanel.style.display = 'block';
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('adminLoggedIn');
+      sessionStorage.removeItem('adminToken');
+      location.reload();
+    });
+
+    // 标签页切换
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabName = btn.dataset.tab;
+
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(tabName + 'Tab').classList.add('active');
+      });
+    });
+
+    // 语言切换（内容管理）
+    const langTabs = document.querySelectorAll('[data-lang="zh"], [data-lang="en"]');
+    langTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const lang = tab.dataset.lang;
+
+        document.querySelectorAll('[data-lang="zh"], [data-lang="en"]').forEach(t => {
+          t.classList.remove('active');
+        });
+        tab.classList.add('active');
+
+        document.getElementById('zhContent').style.display = lang === 'zh' ? 'block' : 'none';
+        document.getElementById('enContent').style.display = lang === 'en' ? 'block' : 'none';
+      });
+    });
+
+    // 语言切换（知识库）
+    const kbLangTabs = document.querySelectorAll('[data-lang="zh-kb"], [data-lang="en-kb"]');
+    kbLangTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const lang = tab.dataset.lang;
+
+        document.querySelectorAll('[data-lang="zh-kb"], [data-lang="en-kb"]').forEach(t => {
+          t.classList.remove('active');
+        });
+        tab.classList.add('active');
+
+        document.getElementById('zhKnowledge').style.display = lang === 'zh-kb' ? 'block' : 'none';
+        document.getElementById('enKnowledge').style.display = lang === 'en-kb' ? 'block' : 'none';
+      });
+    });
+
+    // 加载内容
+    async function loadContent() {
+      try {
+        const token = sessionStorage.getItem('adminToken');
+        const response = await fetch('/api/admin-get-content', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            // 填充表单
+            Object.keys(data.content).forEach(key => {
+              const input = document.getElementById(key);
+              if (input) {
+                input.value = data.content[key] || '';
+              }
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error loading content:', error);
+      }
+    }
+
+    // 加载知识库
+    async function loadKnowledge() {
+      try {
+        const token = sessionStorage.getItem('adminToken');
+        const response = await fetch('/api/admin-get-knowledge', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.knowledge) {
+            Object.keys(data.knowledge).forEach(key => {
+              const input = document.getElementById(key);
+              if (input) {
+                input.value = data.knowledge[key] || '';
+              }
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error loading knowledge:', error);
+      }
+    }
+
+    // 保存内容
+    document.getElementById('saveContentBtn').addEventListener('click', async () => {
+      const contentData = {
+        heroTitle_zh: document.getElementById('heroTitle_zh').value,
+        heroDesc_zh: document.getElementById('heroDesc_zh').value,
+        highlightTitle_zh: document.getElementById('highlightTitle_zh').value,
+        highlightSubtitle_zh: document.getElementById('highlightSubtitle_zh').value,
+        service1Desc_zh: document.getElementById('service1Desc_zh').value,
+        service2Desc_zh: document.getElementById('service2Desc_zh').value,
+        service3Desc_zh: document.getElementById('service3Desc_zh').value,
+        heroTitle_en: document.getElementById('heroTitle_en').value,
+        heroDesc_en: document.getElementById('heroDesc_en').value,
+        highlightTitle_en: document.getElementById('highlightTitle_en').value,
+        highlightSubtitle_en: document.getElementById('highlightSubtitle_en').value,
+        service1Desc_en: document.getElementById('service1Desc_en').value,
+        service2Desc_en: document.getElementById('service2Desc_en').value,
+        service3Desc_en: document.getElementById('service3Desc_en').value
+      };
+
+      try {
+        const token = sessionStorage.getItem('adminToken');
+        const response = await fetch('/api/admin-save-content', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(contentData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showMessage('contentSuccess');
+        } else {
+          showMessage('contentError');
+        }
+      } catch (error) {
+        console.error('Error saving content:', error);
+        showMessage('contentError');
+      }
+    });
+
+    // 保存知识库
+    document.getElementById('saveKnowledgeBtn').addEventListener('click', async () => {
+      const knowledgeData = {
+        botIdentity_zh: document.getElementById('botIdentity_zh').value,
+        services_zh: document.getElementById('services_zh').value,
+        teamFeatures_zh: document.getElementById('teamFeatures_zh').value,
+        responseStyle_zh: document.getElementById('responseStyle_zh').value,
+        botIdentity_en: document.getElementById('botIdentity_en').value,
+        services_en: document.getElementById('services_en').value,
+        teamFeatures_en: document.getElementById('teamFeatures_en').value,
+        responseStyle_en: document.getElementById('responseStyle_en').value
+      };
+
+      try {
+        const token = sessionStorage.getItem('adminToken');
+        const response = await fetch('/api/admin-save-knowledge', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(knowledgeData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showMessage('knowledgeSuccess');
+        } else {
+          showMessage('knowledgeError');
+        }
+      } catch (error) {
+        console.error('Error saving knowledge:', error);
+        showMessage('knowledgeError');
+      }
+    });
+
+    function showMessage(id) {
+      const message = document.getElementById(id);
+      message.style.display = 'block';
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
